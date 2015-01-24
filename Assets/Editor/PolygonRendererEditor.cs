@@ -14,8 +14,11 @@ public class PolygonRendererEditor : Editor {
 
 	}
 
-	public override void OnInspectorGUI (){
+	public override void OnInspectorGUI ()
+	{
 		base.OnInspectorGUI ();
+
+		PolygonRenderer target = (serializedObject.targetObject as PolygonRenderer);
 
 		if (GestureHandler.instance != null)
 		{
@@ -23,14 +26,14 @@ public class PolygonRendererEditor : Editor {
 			foreach (Finger finger in fingers)
 			{
 				Debug.Log("finger");
-				Vector2[] Vertices = (serializedObject.targetObject as PolygonRenderer).Vertices;
+				Vector2[] Vertices = target.Vertices;
 				for (int i = 0; i < Vertices.Length; i++)
 				{
 					Vector2 vertex = Vertices[i];
 					if (Vector2.Distance(finger.GetWorldPosition(), vertex) < 0.5f)
 					{
-						(serializedObject.targetObject as PolygonRenderer).MoveVertex(i, finger.GetWorldPosition());
-						EditorUtility.SetDirty(serializedObject.targetObject);
+						target.MoveVertex(i, finger.GetWorldPosition());
+						EditorUtility.SetDirty(target);
 						Debug.Log("moved");
 						break;
 					}
@@ -39,9 +42,9 @@ public class PolygonRendererEditor : Editor {
 		}
 
 		// Update Polygon if a vertex is changed
-		if ((serializedObject.targetObject as PolygonRenderer).VerticesChanged())
+		if (target.VerticesChanged())
 		{
-			(serializedObject.targetObject as PolygonRenderer).Build();
+			target.Build();
 		}
 
 		GUILayout.BeginHorizontal();
@@ -55,7 +58,7 @@ public class PolygonRendererEditor : Editor {
 				verts[i] = new Vector2(Mathf.Sin(i * Mathf.PI * 2f / n), Mathf.Cos(i * Mathf.PI * 2f / n)) * height;
 			}
 
-			PolygonRenderer poly = (serializedObject.targetObject as PolygonRenderer);
+			PolygonRenderer poly = target;
 			poly.Vertices = verts;
 			poly.Build();
 		}
@@ -73,12 +76,12 @@ public class PolygonRendererEditor : Editor {
 
 		if (GUILayout.Button("Rebuild"))
 		{
-			(serializedObject.targetObject as PolygonRenderer).Build();
+			target.Build();
 		}
 
 		if (GUILayout.Button("Save Mesh"))
 		{
-			MeshFilter m = (serializedObject.targetObject as PolygonRenderer).GetComponent<MeshFilter>();
+			MeshFilter m = target.GetComponent<MeshFilter>();
 			AssetDatabase.CreateAsset(m.mesh, "Assets/Meshes/" + m.gameObject.name + " Mesh.asset");
 		}
 	}
