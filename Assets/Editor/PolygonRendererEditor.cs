@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 [CustomEditor(typeof(PolygonRenderer))]
 public class PolygonRendererEditor : Editor {
@@ -15,6 +16,27 @@ public class PolygonRendererEditor : Editor {
 
 	public override void OnInspectorGUI (){
 		base.OnInspectorGUI ();
+
+		if (GestureHandler.instance != null)
+		{
+			List<Finger> fingers = GestureHandler.instance.fingers;
+			foreach (Finger finger in fingers)
+			{
+				Debug.Log("finger");
+				Vector2[] Vertices = (serializedObject.targetObject as PolygonRenderer).Vertices;
+				for (int i = 0; i < Vertices.Length; i++)
+				{
+					Vector2 vertex = Vertices[i];
+					if (Vector2.Distance(finger.GetWorldPosition(), vertex) < 0.5f)
+					{
+						(serializedObject.targetObject as PolygonRenderer).MoveVertex(i, finger.GetWorldPosition());
+						EditorUtility.SetDirty(serializedObject.targetObject);
+						Debug.Log("moved");
+						break;
+					}
+				}
+			}
+		}
 
 		// Update Polygon if a vertex is changed
 		if ((serializedObject.targetObject as PolygonRenderer).VerticesChanged())

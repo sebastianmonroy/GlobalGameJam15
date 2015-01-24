@@ -15,24 +15,32 @@ public class PolygonRenderer : MonoBehaviour {
 	float winding = 1;
 	bool built = false;
 
-	void Start()
+	void Update()
 	{
-		//Build();
+		Build();
 	}
 
 	public bool VerticesChanged()
 	{
 		bool changed = false;
-		for (int i = 0; i < Vertices.Length; i++)
+		if (built)
 		{
-			if (prevVertices[i] != Vertices[i])
+			for (int i = 0; i < Vertices.Length; i++)
 			{
-				changed = true;
-				break;
+				if (prevVertices[i] != Vertices[i])
+				{
+					changed = true;
+					break;
+				}
 			}
 		}
 
 		return changed;
+	}
+
+	public void MoveVertex(int index, Vector2 position)
+	{
+		Vertices[index] = position;
 	}
 
 	public void Instance(){
@@ -134,6 +142,11 @@ public class PolygonRenderer : MonoBehaviour {
 		GetComponent<MeshFilter>().mesh = m;
 		yield return 0;
 	}
+
+	/*public Vector2 toLocalSpace(Vector2 worldPosition)
+	{
+
+	}*/
 
 	void CalculateAxes(){
 		if (vertexAxes == null || vertexAxes.Length != Vertices.Length){

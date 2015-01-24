@@ -74,7 +74,7 @@ public class Finger
 	public override string ToString() {
 		string output = "";
 		output += "Finger " + id + " ";
-		output += "@ {" + position.x + ", " + position.y + "} ";
+		output += "@ {" + GetWorldPosition().x + ", " + GetWorldPosition().y + "} ";
 		output += " with velocity {" + velocity.x + ", " + velocity.y + "}";
 
 		return output;
