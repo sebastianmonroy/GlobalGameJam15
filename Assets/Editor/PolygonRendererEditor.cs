@@ -23,10 +23,10 @@ public class PolygonRendererEditor : Editor {
 			{
 				fingers.Add(mouse);
 			}
-			
+
 			foreach (Finger finger in fingers)
 			{
-				Debug.Log("finger");
+				//Debug.Log("finger");
 				Vector2[] Vertices = target.Vertices;
 				for (int i = 0; i < Vertices.Length; i++)
 				{
@@ -37,7 +37,7 @@ public class PolygonRendererEditor : Editor {
 						//serializedObject.ApplyModifiedProperties();
 						//EditorUtility.SetDirty(target);
 						//EditorUtility.IsPersistent(target);
-						Debug.Log("moved");
+						//Debug.Log("moved");
 						break;
 					}
 				}

@@ -26,7 +26,7 @@ public class GestureHandler : MonoBehaviour
 			Vector3 mousePosition = Input.mousePosition;
 			mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0f);
 			mouse = new Finger(new Vector2(mousePosition.x, mousePosition.y));
-			Debug.Log("mouse : " + mouse.GetWorldPosition().x + " " + mouse.GetWorldPosition().y);
+			//Debug.Log("mouse : " + mouse.GetWorldPosition().x + " " + mouse.GetWorldPosition().y);
 			mouse.isValid = true;
 		} else {
 			mouse.isValid = false;
