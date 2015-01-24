@@ -7,6 +7,7 @@ using System.Collections;
 public class PolygonRenderer : MonoBehaviour {
 
 	public Vector2[] Vertices;
+	private Vector2[] prevVertices;
 	public float Thickness;
 	public bool Filled;
 
@@ -14,8 +15,24 @@ public class PolygonRenderer : MonoBehaviour {
 	float winding = 1;
 	bool built = false;
 
-	void Start(){
+	void Start()
+	{
 		//Build();
+	}
+
+	public bool VerticesChanged()
+	{
+		bool changed = false;
+		for (int i = 0; i < Vertices.Length; i++)
+		{
+			if (prevVertices[i] != Vertices[i])
+			{
+				changed = true;
+				break;
+			}
+		}
+
+		return changed;
 	}
 
 	public void Instance(){
@@ -34,6 +51,7 @@ public class PolygonRenderer : MonoBehaviour {
 		if (Vertices != null && Vertices.Length > 0){
 			CalculateAxes();
 			StartCoroutine(CreateMesh());
+			prevVertices = (Vertices.Clone() as Vector2[]);
 			built = true;
 		}
 	}

@@ -8,11 +8,25 @@ public class PolygonRendererEditor : Editor {
 	int n;
 	float height;
 
+	public void SceneGUI(SceneView sceneView)
+	{
+
+	}
+
 	public override void OnInspectorGUI (){
 		base.OnInspectorGUI ();
+
+		// Update Polygon if a vertex is changed
+		if ((serializedObject.targetObject as PolygonRenderer).VerticesChanged())
+		{
+			(serializedObject.targetObject as PolygonRenderer).Build();
+		}
+
 		GUILayout.BeginHorizontal();
 		GUILayout.Space(EditorGUIUtility.labelWidth);
-		if (GUILayout.Button("Create N-Gon")){
+
+		if (GUILayout.Button("Create N-Gon"))
+		{
 			Vector2[] verts = new Vector2[n];
 
 			for (int i = 0; i < verts.Length; i++){
@@ -23,6 +37,7 @@ public class PolygonRendererEditor : Editor {
 			poly.Vertices = verts;
 			poly.Build();
 		}
+
 		GUILayout.Space(10);
 		GUILayout.BeginVertical();
 		GUILayout.Label("N");
@@ -33,10 +48,14 @@ public class PolygonRendererEditor : Editor {
 		height = EditorGUILayout.FloatField(height);
 		GUILayout.EndVertical();
 		GUILayout.EndHorizontal();
-		if (GUILayout.Button("Rebuild")){
+
+		if (GUILayout.Button("Rebuild"))
+		{
 			(serializedObject.targetObject as PolygonRenderer).Build();
 		}
-		if (GUILayout.Button("Save Mesh")){
+
+		if (GUILayout.Button("Save Mesh"))
+		{
 			MeshFilter m = (serializedObject.targetObject as PolygonRenderer).GetComponent<MeshFilter>();
 			AssetDatabase.CreateAsset(m.mesh, "Assets/Meshes/" + m.gameObject.name + " Mesh.asset");
 		}
