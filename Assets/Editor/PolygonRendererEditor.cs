@@ -18,6 +18,12 @@ public class PolygonRendererEditor : Editor {
 		if (EditorApplication.isPlaying && GestureHandler.instance != null)
 		{
 			List<Finger> fingers = GestureHandler.instance.fingers;
+			Finger mouse = GestureHandler.instance.mouse;
+			if (mouse.isValid)
+			{
+				fingers.Add(mouse);
+			}
+			
 			foreach (Finger finger in fingers)
 			{
 				Debug.Log("finger");

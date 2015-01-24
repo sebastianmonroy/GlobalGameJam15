@@ -9,6 +9,7 @@ public class GestureHandler : MonoBehaviour
 	public static GestureHandler instance;
 	public int fingerCount = 0;
 	public List<Finger> fingers = new List<Finger>();
+	public Finger mouse = new Finger();
 	public bool debugFingers;
 	public float dtError = 0.5f;
 	public float doubleTapTime = 0.5f;
@@ -20,6 +21,17 @@ public class GestureHandler : MonoBehaviour
 
 	void Update() 
 	{
+		if (Input.GetMouseButton(0))
+		{
+			Vector3 mousePosition = Input.mousePosition;
+			mousePosition = new Vector3(mousePosition.x, mousePosition.y, 0f);
+			mouse = new Finger(new Vector2(mousePosition.x, mousePosition.y));
+			Debug.Log("mouse : " + mouse.GetWorldPosition().x + " " + mouse.GetWorldPosition().y);
+			mouse.isValid = true;
+		} else {
+			mouse.isValid = false;
+		}
+
 		// Populate list of all current touches
 		List<Touch> newTouches = new List<Touch>();
 		foreach (Touch touch in Input.touches) {

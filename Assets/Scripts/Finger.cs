@@ -12,24 +12,27 @@ public class Finger
 	public Vector2 velocity;
 
 	public bool isValid;
-	public bool isEmpty;
+	public bool isMouse;
 
 	public Finger() {}
 	
-	public float upTime=0.0f;
+	public float upTime = 0.0f;
 
 	public Finger(Touch touch) 
-	{
-		Initialize(touch);
-	}
-
-	public void Initialize(Touch touch) 
 	{
 		this.touch = touch;
 		this.id = touch.fingerId;
 		this.position = GetWorldPosition();
 		this.isValid = true;
-		this.isEmpty = true;
+		this.isMouse = false;
+	}
+
+	public Finger(Vector2 mousePosition)
+	{
+		this.id = -1;
+		this.position = mousePosition;
+		this.isValid = true;
+		this.isMouse = true;
 	}
 
 	public void Update(Touch touch)
@@ -67,7 +70,7 @@ public class Finger
 	}
 
 	public Vector2 GetWorldPosition() {
-		Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(this.touch.position.x, this.touch.position.y, 0f));
+		Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 0f));
 		return worldPos;
 	}
 
