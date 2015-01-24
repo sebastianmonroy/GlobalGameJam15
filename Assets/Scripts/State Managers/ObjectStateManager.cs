@@ -77,7 +77,7 @@ public class ObjectStateManager : MonoBehaviour
 	#region square
 	void SquareEnter() {
 		//BlendHandler.Instance.Blend (this.gameObject, Resources.Load ("test") as GameObject);
-		BlendHandler.Instance.Blend (this.gameObject, to_shape);
+		BlendHandler.Instance.Blend (this.gameObject, to_shape, 3.0f);
 
 		//poly.CreateNGon (4,1);
 
