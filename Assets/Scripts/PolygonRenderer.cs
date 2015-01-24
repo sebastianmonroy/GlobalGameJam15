@@ -171,4 +171,16 @@ public class PolygonRenderer : MonoBehaviour {
 			vertexAxes[i] = winding * bisector * 1f / Mathf.Sin(Mathf.Deg2Rad * Vector2.Angle(Vertices[prevIndex] - Vertices[i], bisector));
 		}
 	}
+
+	public void CreateNGon(int n, float height){
+		Vector2[] verts = new Vector2[n];
+		
+		for (int i = 0; i < verts.Length; i++){
+			verts[i] = new Vector2(Mathf.Sin(i * Mathf.PI * 2f / n), Mathf.Cos(i * Mathf.PI * 2f / n)) * height;
+		}
+		
+		//PolygonRenderer poly = target;
+		Vertices = verts;
+		Build();
+	}
 }

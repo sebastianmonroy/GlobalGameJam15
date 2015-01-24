@@ -49,15 +49,8 @@ public class PolygonRendererEditor : Editor {
 
 		if (GUILayout.Button("Create N-Gon"))
 		{
-			Vector2[] verts = new Vector2[n];
+			target.CreateNGon(n,height);
 
-			for (int i = 0; i < verts.Length; i++){
-				verts[i] = new Vector2(Mathf.Sin(i * Mathf.PI * 2f / n), Mathf.Cos(i * Mathf.PI * 2f / n)) * height;
-			}
-
-			PolygonRenderer poly = target;
-			poly.Vertices = verts;
-			poly.Build();
 		}
 
 		GUILayout.Space(10);
