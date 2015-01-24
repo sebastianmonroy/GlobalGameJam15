@@ -4,6 +4,7 @@ using System.Collections;
 [RequireComponent(typeof(MeshFilter))]
 [RequireComponent(typeof(MeshRenderer))]
 [ExecuteInEditMode]
+//[System.Serializable]
 public class PolygonRenderer : MonoBehaviour {
 
 	public Vector2[] Vertices;

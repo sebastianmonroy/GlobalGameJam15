@@ -9,18 +9,13 @@ public class PolygonRendererEditor : Editor {
 	int n;
 	float height;
 
-	public void SceneGUI(SceneView sceneView)
-	{
-
-	}
-
 	public override void OnInspectorGUI ()
 	{
 		base.OnInspectorGUI ();
 
 		PolygonRenderer target = (serializedObject.targetObject as PolygonRenderer);
 
-		if (GestureHandler.instance != null)
+		if (EditorApplication.isPlaying && GestureHandler.instance != null)
 		{
 			List<Finger> fingers = GestureHandler.instance.fingers;
 			foreach (Finger finger in fingers)
@@ -33,7 +28,9 @@ public class PolygonRendererEditor : Editor {
 					if (Vector2.Distance(finger.GetWorldPosition(), vertex) < 0.5f)
 					{
 						target.MoveVertex(i, finger.GetWorldPosition());
-						EditorUtility.SetDirty(target);
+						//serializedObject.ApplyModifiedProperties();
+						//EditorUtility.SetDirty(target);
+						//EditorUtility.IsPersistent(target);
 						Debug.Log("moved");
 						break;
 					}
