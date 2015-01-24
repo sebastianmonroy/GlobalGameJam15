@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BlendHandler : MonoBehaviour {
 	//debug
-	public GameObject g1, g2;
+	/*public GameObject g1, g2;
 	void Start(){
 		Blend(g1, g2);
-	}
+	}*/
 	//end debug
 	
 	public void Blend(GameObject _bFrom, GameObject _bTo){
