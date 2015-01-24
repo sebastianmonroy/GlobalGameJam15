@@ -56,8 +56,34 @@ public class PolygonRenderer : MonoBehaviour {
 		m.mesh = newMesh;
 	}
 
+	public void Modify()
+	{
+		if (Vertices != null && Vertices.Length > 0)
+		{
+			CalculateAxes();
+			StartCoroutine(UpdateMesh());
+			prevVertices = (Vertices.Clone() as Vector2[]);
+			built = true;
+		}
+	}
+
+	IEnumerator UpdateMesh()
+	{
+		Vector3[] vertices = new Vector3[2 * Vertices.Length];
+		for (int i = 0; i < Vertices.Length; i++)
+		{
+			vertices[2 * i] = Vertices[i] + vertexAxes[i] * Thickness;
+			vertices[2 * i + 1] = Vertices[i] - vertexAxes[i] * Thickness;
+		}
+
+		GetComponent<MeshFilter>().mesh.vertices = vertices;
+		yield return 0;
+	}
+
+
 	public void Build(){
-		if (Vertices != null && Vertices.Length > 0){
+		if (Vertices != null && Vertices.Length > 0)
+		{
 			CalculateAxes();
 			StartCoroutine(CreateMesh());
 			prevVertices = (Vertices.Clone() as Vector2[]);
@@ -69,7 +95,8 @@ public class PolygonRenderer : MonoBehaviour {
 		Mesh m = GetComponent<MeshFilter>().sharedMesh;
 
 		bool newMesh = false;
-		if (m == null){
+		if (m == null)
+		{
 			m = new Mesh();
 			m.name = "Polygon";
 			newMesh = true;

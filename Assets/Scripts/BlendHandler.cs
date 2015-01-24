@@ -23,36 +23,43 @@ public class BlendHandler: MonoBehaviour {
 	
 	IEnumerator BlendRoutine(GameObject from, GameObject to, Timer timer){
 		Debug.Log("start coroutine");
-		PolygonRenderer verts1 = from.GetComponent<PolygonRenderer>();
-		PolygonRenderer verts2 = to.GetComponent<PolygonRenderer>();
+		PolygonRenderer polygon1 = from.GetComponent<PolygonRenderer>();
+		PolygonRenderer polygon2 = to.GetComponent<PolygonRenderer>();
 		
-		if(verts1.Vertices.Length == verts2.Vertices.Length){
-			int s = verts1.Vertices.Length;
-			Vector2[] oldStart = verts1.Vertices;
-			Quaternion oldRot = from.transform.rotation;
+		if(polygon1.Vertices.Length == polygon2.Vertices.Length){
+			int s = polygon1.Vertices.Length;
+			Vector2[] oldVertices = polygon1.Vertices;
+			Quaternion oldRotation = from.transform.rotation;
 			Vector3 oldScale = from.transform.localScale;
 			Color oldColor = from.renderer.material.color;
-			Vector3 oldTrans = from.transform.position;
-			float oldThick = verts1.Thickness;
+			Vector3 oldPosition = from.transform.position;
+			float oldThick = polygon1.Thickness;
+
+			Vector2[] newVertices = polygon2.Vertices;
+			Quaternion newRotation = to.transform.rotation;
+			Vector3 newScale = to.transform.localScale;
+			Color newColor = to.renderer.material.color;
+			Vector3 newPosition = to.transform.position;
+			float newThick = polygon2.Thickness;
 			
 			while(!timer.IsFinished()) {
 				for(int i = 0; i < s; i++){
-					//if(i == 0) Debug.Log("moving from " + verts1.Vertices[i] + " to " + verts2.Vertices[i]);
-					verts1.Vertices[i] = Vector2.Lerp(oldStart[i], verts2.Vertices[i], timer.Percent());
+					//if(i == 0) Debug.Log("moving from " + polygon1.Vertices[i] + " to " + polygon2.Vertices[i]);
+					polygon1.Vertices[i] = Vector2.Lerp(oldVertices[i], newVertices[i], timer.Percent());
 					//color, rotation, thickness, scale
-					from.renderer.material.color = Color.Lerp(oldColor, to.renderer.material.color, timer.Percent());
-					from.transform.rotation = Quaternion.Lerp(oldRot, to.transform.rotation, timer.Percent());
-					from.transform.localScale = Vector3.Lerp(oldScale, to.transform.localScale, timer.Percent());
-					from.transform.position = Vector3.Lerp(oldTrans, to.transform.position, timer.Percent());
-					verts1.Thickness = Mathf.Lerp(oldThick, verts2.Thickness, timer.Percent());
-					//if(i == 0) Debug.Log("At position: " + verts1.Vertices[i]);
+					from.renderer.material.color = Color.Lerp(oldColor, newColor, timer.Percent());
+					from.transform.rotation = Quaternion.Lerp(oldRotation, newRotation, timer.Percent());
+					from.transform.localScale = Vector3.Lerp(oldScale, newScale, timer.Percent());
+					from.transform.position = Vector3.Lerp(oldPosition, newPosition, timer.Percent());
+					polygon1.Thickness = Mathf.Lerp(oldThick, newThick, timer.Percent());
+					//if(i == 0) Debug.Log("At position: " + polygon1.Vertices[i]);
 				}
-				verts1.Build();
-				yield return new WaitForSeconds(0.1f);
+				polygon1.Modify();
+				yield return 0;
 			}
 		} else {
 			Debug.LogWarning("Meshes have different amount of vertices");
-			yield return new WaitForSeconds(0.001f);
+			yield return 0;
 		}
 		
 		blendDone = true;
