@@ -12,6 +12,8 @@ public class ObjectStateManager : MonoBehaviour
 
 	PolygonRenderer poly;
 
+	public GameObject to_shape;
+
 	void Start()
 	{
 		Init();
@@ -51,7 +53,7 @@ public class ObjectStateManager : MonoBehaviour
 	#region circle
 	void CircleEnter() 
 	{
-		poly.CreateNGon (20, 1);
+		//poly.CreateNGon (20, 1);
 	}
 
 	void CircleUpdate() 
@@ -74,7 +76,10 @@ public class ObjectStateManager : MonoBehaviour
 
 	#region square
 	void SquareEnter() {
-		poly.CreateNGon (4,1);
+		//BlendHandler.Instance.Blend (this.gameObject, Resources.Load ("test") as GameObject);
+		BlendHandler.Instance.Blend (this.gameObject, to_shape);
+
+		//poly.CreateNGon (4,1);
 
 	}
 

@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlendHandler : MonoBehaviour {
-	//debug
-	/*public GameObject g1, g2;
+public class BlendHandler: MonoBehaviour {
+	public static BlendHandler Instance;
+
 	void Start(){
-		Blend(g1, g2);
-	}*/
-	//end debug
-	
+		Instance = this;
+		}
+
 	public void Blend(GameObject _bFrom, GameObject _bTo){
 		StartCoroutine(BlendRoutine(_bFrom, _bTo));
 	}
