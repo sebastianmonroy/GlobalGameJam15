@@ -39,7 +39,7 @@ public class PolygonRenderer : MonoBehaviour {
 	}
 
 	IEnumerator CreateMesh(){
-		Mesh m = GetComponent<MeshFilter>().mesh;
+		Mesh m = GetComponent<MeshFilter>().sharedMesh;
 
 		bool newMesh = false;
 		if (m == null){
