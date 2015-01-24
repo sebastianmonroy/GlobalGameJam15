@@ -12,7 +12,7 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: Polygon 3
+  m_Name: Polygon 1 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: ead956ffc0ee259448c62aa3f6a49b76, type: 2}
+  - {fileID: 2100000, guid: f08de766ed2171d4a9561f56a7641a15, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -69,16 +69,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vertices:
-  - {x: 0, y: .5}
-  - {x: .293892622, y: .404508501}
-  - {x: .47552827, y: .154508486}
-  - {x: .47552824, y: -.154508516}
-  - {x: .293892592, y: -.404508531}
-  - {x: -4.37113883e-08, y: -.5}
-  - {x: -.293892682, y: -.404508471}
-  - {x: -.47552824, y: -.154508546}
-  - {x: -.47552824, y: .154508561}
-  - {x: -.293892473, y: .404508621}
+  - {x: 0, y: .100000001}
+  - {x: .0587785244, y: .0809017047}
+  - {x: .0951056555, y: .0309016984}
+  - {x: .095105648, y: -.030901704}
+  - {x: .0587785207, y: -.0809017047}
+  - {x: -8.74227801e-09, y: -.100000001}
+  - {x: -.0587785356, y: -.0809016973}
+  - {x: -.095105648, y: -.0309017096}
+  - {x: -.095105648, y: .0309017133}
+  - {x: -.0587784946, y: .0809017271}
   Thickness: .100000001
   Filled: 0
 --- !u!1001 &100100000

@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BlendHandler : MonoBehaviour {
 	//debug
-	/*public GameObject g1, g2;
+	public GameObject g1, g2;
 	void Start(){
 		Blend(g1, g2);
-	}*/
+	}
 	//end debug
 
 	public void Blend(GameObject _bFrom, GameObject _bTo){
@@ -32,7 +32,7 @@ public class BlendHandler : MonoBehaviour {
 					//if(i == 0) Debug.Log("moving from " + verts1.Vertices[i] + " to " + verts2.Vertices[i]);
 					verts1.Vertices[i] = Vector2.Lerp(oldStart[i], verts2.Vertices[i], Time.time - startTime);
 					//color, rotation, thickness, scale
-					Color.Lerp(oldColor, to.renderer.material.color, Time.time - startTime);
+					from.renderer.material.color = Color.Lerp(oldColor, to.renderer.material.color, Time.time - startTime);
 					from.transform.rotation = Quaternion.Lerp(oldRot, to.transform.rotation, Time.time - startTime);
 					from.transform.localScale = Vector3.Lerp(oldScale, to.transform.localScale, Time.time - startTime);
 					from.transform.position = Vector3.Lerp(oldTrans, to.transform.position, Time.time - startTime);
