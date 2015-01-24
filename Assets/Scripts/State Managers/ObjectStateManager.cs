@@ -51,12 +51,14 @@ public class ObjectStateManager : MonoBehaviour
 	#region circle
 	void CircleEnter() 
 	{
-
+		poly.CreateNGon (20, 1);
 	}
 
 	void CircleUpdate() 
 	{
-
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			stateMachine.SwitchStates(squareState);
+				}
 	}
 
 	void CircleExit() {}
@@ -72,7 +74,7 @@ public class ObjectStateManager : MonoBehaviour
 
 	#region square
 	void SquareEnter() {
-
+		poly.CreateNGon (4,1);
 
 	}
 
