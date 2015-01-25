@@ -17,8 +17,8 @@ public class ClockStateManager : FrameStateManager {
 	}
 	
 	#region TICKTOCK
-	private GameObject MinuteHand;
-	private GameObject HourHand;
+	public GameObject MinuteHand;
+	public GameObject HourHand;
 	private Timer secondTimer;
 	private float second;
 	private float minute;
@@ -28,9 +28,6 @@ public class ClockStateManager : FrameStateManager {
 
 	void TickTockEnter() 
 	{
-		MinuteHand = DynamicDecorations[0];
-		HourHand = DynamicDecorations[1];
-
 		secondTimer = new Timer(1.0f);
 		secondTimer.Repeat();
 		secondTimer.Restart();

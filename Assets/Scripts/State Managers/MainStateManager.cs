@@ -50,30 +50,58 @@ public class MainStateManager : MonoBehaviour
 	{
 		if (BlendHandler.Instance != null)
 		{
-			//SetMachine(bubbleMachine);
+			machine = machineObject.GetComponent<FrameStateManager>();
+			machine.EnableShapes();
+			machine.EnableLight();
+			machine.gameObject.SetActive(true);
+
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
-			Switch(bubbleState, bubble, 3.0f);
+
+			Switch(bubbleState, bubble, 1.0f);
+
 			this.initialized = true;
 		}
 	}
 
-	public void SetMachine(FrameStateManager toMachine)
-	{
-		machineObject = Instantiate(toMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
-		machine = machineObject.GetComponent<FrameStateManager>();
-		machine.EnableAll();
-	}
+	public bool switching = false;
+	public GameObject nextMachineObject;
+	public FrameStateManager nextMachine;
 
 	public void Switch(SimpleState nextState, GameObject nextObject, float duration)
 	{
 		stateMachine.SwitchStates(nextState);
-		Destroy(machineObject, duration + 0.1f);
-		machineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
-		FrameStateManager nextMachine = machineObject.GetComponent<FrameStateManager>();
+
+		nextMachineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
+		nextMachine = nextMachineObject.GetComponent<FrameStateManager>();
+		nextMachine.DisableShapes();
+		nextMachine.DisableLight();
+
 		BlendHandler.Instance.Blend(machine, nextMachine, duration);
-		//StartCoroutine(EnableAfterDelay(nextMachine))
-		machine = nextMachine;
+
+		StartCoroutine(AfterTransition(duration));
 	}
+
+		IEnumerator AfterTransition(float duration)
+		{
+			switching = true;
+			Timer timer = new Timer(duration);
+			while (timer.Percent() < 1f)
+			{
+				yield return 0;
+			}
+			switching = false;
+
+			FrameStateManager oldMachine = machine;
+
+			machine = nextMachine;
+			machineObject = nextMachineObject;
+			machine.EnableShapes();
+
+			oldMachine.DisableShapes();
+			oldMachine.DisableLight();
+			machine.EnableLight();
+			Destroy(oldMachine.gameObject);
+		}
 
 	public void Execute () 
 	{
@@ -91,7 +119,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED")
 		{
-			Switch(clockState, clock, 3.0f);
+			Switch(clockState, clock, 1.0f);
 		}
 	}
 	
@@ -110,7 +138,7 @@ public class MainStateManager : MonoBehaviour
 			//Switch(personState, icecream, 3.0f);
 		} else if (machine.stateMachine.currentState == "FINISHEDICECREAM")
 		{
-			Switch(icecreamState, icecream, 3.0f);
+			Switch(icecreamState, icecream, 1.0f);
 		}
 	}
 
@@ -126,7 +154,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(sexState, sex, 3.0f);
+			Switch(sexState, sex, 1.0f);
 		}
 	}
 	
@@ -142,7 +170,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(bicycleState, bicycle, 3.0f);
+			Switch(bicycleState, bicycle, 1.0f);
 		}
 	}
 	

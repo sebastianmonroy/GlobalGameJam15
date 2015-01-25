@@ -7,11 +7,11 @@ public class FrameStateManager : MonoBehaviour
 	public SimpleStateMachine stateMachine;
 
 	// POLYGONS
-	public List<GameObject> PolygonObjects = new List<GameObject>();
+	public List<GameObject> Polygons = new List<GameObject>();
 
 	// DECORATIONS
-	public List<GameObject> DynamicDecorations = new List<GameObject>();
-	public List<GameObject> StaticDecorations = new List<GameObject>();
+	public List<GameObject> Decorations = new List<GameObject>();
+
 	public Color BackgroundColor;
 	public Light Lighting;
 
@@ -20,39 +20,41 @@ public class FrameStateManager : MonoBehaviour
 		stateMachine.Execute();
 	}
 
-	public void EnableAll()
+	public void EnableShapes()
 	{
-		foreach (GameObject polygon in PolygonObjects)
+		foreach (GameObject polygon in Polygons)
 		{
 			polygon.SetActive(true);
 		}
 
-		foreach (GameObject deco in DynamicDecorations)
+		foreach (GameObject deco in Decorations)
 		{
 			deco.SetActive(true);
 		}
 
-		foreach (GameObject deco in StaticDecorations)
-		{
-			deco.SetActive(true);
-		}
+		this.gameObject.SetActive(true);
 	}
 
-	public void DisableAll()
+	public void EnableLight()
 	{
-		foreach (GameObject polygon in PolygonObjects)
+		Lighting.gameObject.SetActive(true);
+	}
+
+	public void DisableShapes()
+	{
+		foreach (GameObject polygon in Polygons)
 		{
 			polygon.SetActive(false);
 		}
 
-		foreach (GameObject deco in DynamicDecorations)
+		foreach (GameObject deco in Decorations)
 		{
 			deco.SetActive(false);
 		}
+	}
 
-		foreach (GameObject deco in StaticDecorations)
-		{
-			deco.SetActive(false);
-		}
+	public void DisableLight()
+	{
+		Lighting.gameObject.SetActive(false);
 	}
 }
