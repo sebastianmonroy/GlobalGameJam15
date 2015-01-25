@@ -2,17 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent (typeof(PolygonRenderer))]
-public class ObjectStateManager : MonoBehaviour
+public class MainStateManager : MonoBehaviour
 {
-	public bool initialized;
-
 	public SimpleStateMachine stateMachine;
 	SimpleState circleState, clockState, squareState, playState, disconnectState, finishedState;
 
-	PolygonRenderer poly;
-
-	public List<Frame> frames = new List<Frame>();
+	public List<FrameStateManager> frames = new List<FrameStateManager>();
 
 	void Start()
 	{
@@ -21,8 +16,6 @@ public class ObjectStateManager : MonoBehaviour
 
 	public void Init () 
 	{
-		poly = gameObject.GetComponent<PolygonRenderer> ();
-
 		circleState = new SimpleState(CircleEnter, CircleUpdate, CircleExit, "CIRCLE");
 		clockState = new SimpleState(ClockEnter, ClockUpdate, ClockExit, "CLOCK");
 		squareState = new SimpleState(SquareEnter, SquareUpdate, SquareExit, "SQUARE");

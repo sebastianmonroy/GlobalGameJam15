@@ -25,13 +25,13 @@ public class BlendHandler: MonoBehaviour {
 		Blend(_bFrom, _bTo, timer);
 	}
 
-	public void Blend(Frame from, Frame to, float duration)
+	public void Blend(FrameStateManager from, FrameStateManager to, float duration)
 	{
 		Timer timer = new Timer(duration);
 		Blend(from, to, timer);
 	}
 
-	public void Blend(Frame from, Frame to, Timer timer)
+	public void Blend(FrameStateManager from, FrameStateManager to, Timer timer)
 	{
 		blendDone = false;
 		for (int i = 0; i < from.PolygonObjects.Count; i++)
