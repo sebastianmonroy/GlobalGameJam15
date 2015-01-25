@@ -168,9 +168,14 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED" || Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED1" || Input.GetKeyDown(KeyCode.Space))
 		{
+			Debug.Log("here");
 			Switch(bicycleState, bicycle, 1.0f);
+		}
+		if (machine.stateMachine.currentState == "FINISHED2")
+		{
+			Switch(icecreamState, icecream, 1.0f);
 		}
 	}
 	

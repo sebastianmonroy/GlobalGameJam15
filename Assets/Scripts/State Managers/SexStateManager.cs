@@ -99,7 +99,7 @@ public class SexStateManager : FrameStateManager {
 		
 		if (Vector3.Distance(MaleRoot.transform.position, FemaleRoot.transform.position) <= 1f)
 		{
-			Debug.Log(maleP + femaleP);
+//			Debug.Log(maleP + femaleP);
 
 			if (maleP + femaleP > .5f && maleP + femaleP < 1.5f){
 				stateMachine.SwitchStates(finishedState1);
