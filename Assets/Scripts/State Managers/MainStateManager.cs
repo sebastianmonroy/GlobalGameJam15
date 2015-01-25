@@ -10,9 +10,11 @@ public class MainStateManager : MonoBehaviour
 
 	public GameObject machineObject;
 	public FrameStateManager machine;
-	public IceCreamStateManager icecreamMachine;
-	public BubbleStateManager bubbleMachine;
-	public ClockStateManager clockMachine;
+	public GameObject icecream;
+	public GameObject bubble;
+	public GameObject clock;
+
+	public bool initialized = false;
 
 	void Start()
 	{
@@ -25,26 +27,30 @@ public class MainStateManager : MonoBehaviour
 		clockState = new SimpleState(ClockEnter, ClockUpdate, ClockExit, "CLOCK");
 		icecreamState = new SimpleState(IceCreamEnter, IceCreamUpdate, IceCreamExit, "ICE CREAM");
 
-		/*
-		playState = new SimpleState(PlayEnter, PlayUpdate, PlayExit, "PLAY");
-		disconnectState = new SimpleState(DisconnectEnter, DisconnectUpdate, DisconnectExit, "DISCONNECT");
-		finishedState = new SimpleState(null, null, null, "FINISHED");
-		*/
-
 		Setup();
 	}
 	
 	void Update () 
 	{
-		Execute();
+		if (!initialized)
+		{
+			Setup();
+		}
+		else 
+		{
+			Execute();
+		}
 	}
 
 	public void Setup () 
 	{
-		SetMachine(bubbleMachine);
-		BlendHandler.Instance.Background.renderer.material.color = bubbleMachine.BackgroundColor;
-		stateMachine.SwitchStates(bubbleState);
-
+		if (BlendHandler.Instance != null)
+		{
+			//SetMachine(bubbleMachine);
+			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
+			Switch(bubbleState, bubble, 3.0f);
+			this.initialized = true;
+		}
 	}
 
 	public void SetMachine(FrameStateManager toMachine)
@@ -54,10 +60,39 @@ public class MainStateManager : MonoBehaviour
 		machine.EnableAll();
 	}
 
+	public void Switch(SimpleState nextState, GameObject nextObject, float duration)
+	{
+		stateMachine.SwitchStates(nextState);
+		Destroy(machineObject, duration + 0.1f);
+		machineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
+		FrameStateManager nextMachine = machineObject.GetComponent<FrameStateManager>();
+		BlendHandler.Instance.Blend(machine, nextMachine, duration);
+		//StartCoroutine(EnableAfterDelay(nextMachine))
+		machine = nextMachine;
+	}
+
 	public void Execute () 
 	{
 		stateMachine.Execute();
 	}
+
+	#region BUBBLE
+	void BubbleEnter() {
+		
+	}
+	
+	void BubbleUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			Switch(clockState, clock, 3.0f);
+		}
+	}
+	
+	void BubbleExit() {}
+	#endregion
 
 	#region CLOCK
 	void ClockEnter() {}
@@ -68,16 +103,11 @@ public class MainStateManager : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			stateMachine.SwitchStates(icecreamState);
+			Switch(icecreamState, icecream, 3.0f);
 		}
 	}
 
-	void ClockExit() 
-	{
-		BlendHandler.Instance.Blend(machine, icecreamMachine, 3.0f);
-		SetMachine(icecreamMachine);
-		//machineObject = Instantiate(icecreamMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
-	}
+	void ClockExit() {}
 	#endregion
 	
 	#region ICECREAM
@@ -96,28 +126,5 @@ public class MainStateManager : MonoBehaviour
 	}
 	
 	void IceCreamExit() {}
-	#endregion
-	
-	#region BUBBLE
-	void BubbleEnter() {
-		
-	}
-	
-	void BubbleUpdate() 
-	{
-		machine.Execute();
-		
-		if (machine.stateMachine.currentState == "FINISHED")
-		{
-			stateMachine.SwitchStates(clockState);
-		}
-	}
-	
-	void BubbleExit() 
-	{
-		BlendHandler.Instance.Blend(machine, clockMachine, 3.0f);
-		SetMachine(clockMachine);
-		//machineObject = Instantiate(clockMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
-	}
 	#endregion
 }

@@ -44,12 +44,14 @@ public class BlendHandler: MonoBehaviour {
 		while (from.PolygonObjects.Count < to.PolygonObjects.Count)
 		{
 			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			newPoly.transform.parent = from.transform;
 			fromPolys.Add(newPoly);
 		}
 
 		while (to.PolygonObjects.Count < from.PolygonObjects.Count)
 		{
 			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			newPoly.transform.parent = to.transform;
 			toPolys.Add(newPoly);
 		}
 
@@ -85,7 +87,7 @@ public class BlendHandler: MonoBehaviour {
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
 	{
-		while (!timer.IsFinished())
+		while (timer.Percent() < 1f) 
 		{
 			Background.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
 			yield return 0;
@@ -103,7 +105,7 @@ public class BlendHandler: MonoBehaviour {
 		float startIntensity = startLight.intensity;
 		float endIntensity = endLight.intensity;
 
-		while (!timer.IsFinished())
+		while (timer.Percent() < 1f) 
 		{
 			startLight.color = Color.Lerp(startColor, endColor, timer.Percent());
 			startLight.transform.position = Vector3.Lerp(startPosition, endPosition, timer.Percent());
@@ -111,6 +113,9 @@ public class BlendHandler: MonoBehaviour {
 			startLight.intensity = Mathf.Lerp(startIntensity, endIntensity, timer.Percent());
 			yield return 0;
 		}
+
+		startLight.gameObject.SetActive(false);
+		endLight.gameObject.SetActive(true);
 	}
 
 	IEnumerator FadeOutObject(GameObject fadeObject, Timer timer)
@@ -118,7 +123,7 @@ public class BlendHandler: MonoBehaviour {
 		Vector3 startSize = fadeObject.transform.localScale;
 		Vector3 endSize = Vector3.zero;
 
-		while (!timer.IsFinished())
+		while (timer.Percent() < 1f) 
 		{
 			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
@@ -129,11 +134,13 @@ public class BlendHandler: MonoBehaviour {
 	
 	IEnumerator FadeInObject(GameObject fadeObject, Timer timer)
 	{
+		//GameObject newObject = Instantiate(fadeObject, fadeObject.transform.position, fadeObject.transform.rotation) as GameObject;
+		//newObject.transform.localScale = Vector3.zero;
 		fadeObject.SetActive(true);
 		Vector3 startSize = Vector3.zero;
 		Vector3 endSize = fadeObject.transform.localScale;
 
-		while (!timer.IsFinished())
+		while (timer.Percent() < 1f) 
 		{
 			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
