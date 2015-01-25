@@ -11,6 +11,8 @@ public class Finger
 	public List<Vector2> prevPositions = new List<Vector2>();
 	public Vector2 velocity;
 
+	public GameObject hitObject;
+
 	public bool isValid;
 	public bool isMouse;
 
@@ -25,6 +27,12 @@ public class Finger
 		this.position = GetWorldPosition();
 		this.isValid = true;
 		this.isMouse = false;
+
+		Ray startRay = Camera.main.ScreenPointToRay(position);
+		RaycastHit rayhit = new RaycastHit();
+		if (Physics.Raycast(startRay, out rayhit, Mathf.Infinity)) {
+			this.hitObject = rayhit.collider.gameObject;
+		}
 	}
 
 	public Finger(Vector2 mousePosition)

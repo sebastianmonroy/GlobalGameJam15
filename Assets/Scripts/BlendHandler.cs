@@ -73,26 +73,24 @@ public class BlendHandler: MonoBehaviour {
 
 	IEnumerator FadeOutObject(GameObject fadeObject, Timer timer)
 	{
-		Color startColor = fadeObject.renderer.material.color;
-		Color endColor = fadeObject.renderer.material.color;
-		endColor.a = 0f;
+		Vector3 startSize = fadeObject.transform.localScale;
+		Vector3 endSize = Vector3.zero;
 
 		while (!timer.IsFinished())
 		{
-			fadeObject.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
 		}
 	}
 	
 	IEnumerator FadeInObject(GameObject fadeObject, Timer timer)
 	{
-		Color startColor = fadeObject.renderer.material.color;
-		Color endColor = fadeObject.renderer.material.color;
-		startColor.a = 0f;
+		Vector3 startSize = Vector3.zero;
+		Vector3 endSize = fadeObject.transform.localScale;
 
 		while (!timer.IsFinished())
 		{
-			fadeObject.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
 		}
 	}

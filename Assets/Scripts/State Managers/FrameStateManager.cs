@@ -13,7 +13,7 @@ public class FrameStateManager : MonoBehaviour
 	public List<GameObject> DynamicDecorations = new List<GameObject>();
 	public List<GameObject> StaticDecorations = new List<GameObject>();
 	public Color BackgroundColor;
-	public Transform LightTransform;
+	public Light Lighting;
 
 	public virtual void Execute() {}
 }
