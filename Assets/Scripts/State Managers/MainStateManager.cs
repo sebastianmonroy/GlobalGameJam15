@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState;
+	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState; startScreenState;
 	SimpleState finishedState;
 
 	public GameObject machineObject;
 	public FrameStateManager machine;
-	public GameObject icecream, bubble, clock, sex, bicycle, paw;
+	public GameObject icecream, bubble, clock, sex, bicycle, paw, startScreen;
 
 	public bool initialized = false;
 
@@ -27,6 +27,7 @@ public class MainStateManager : MonoBehaviour
 		sexState = new SimpleState(SexEnter, SexUpdate, SexExit, "SEX");
 		bicycleState = new SimpleState(BicycleEnter, BicycleUpdate, BicycleExit, "BICYCLE");
 		pawState = new SimpleState(PawEnter, PawUpdate, PawExit, "PAW");
+		startScreenState = new SimpleState(startScreenEnter, startScreenUpdate, startScreenExit, "STARTSCREEN");
 
 		Setup();
 	}
@@ -54,7 +55,7 @@ public class MainStateManager : MonoBehaviour
 
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
 
-			Switch(pawState, paw, 1.0f);
+			Switch(startScreenState, startScreen, 1.0f);
 
 			this.initialized = true;
 		}
@@ -121,6 +122,24 @@ public class MainStateManager : MonoBehaviour
 	}
 	
 	void BubbleExit() {}
+	#endregion
+	
+	#region BUBBLE
+	void startScreenEnter() {
+		
+	}
+	
+	void startScreenUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			Switch(bubbleState, bubble, 1.0f);
+		}
+	}
+	
+	void startScreenExit() {}
 	#endregion
 
 	#region CLOCK
