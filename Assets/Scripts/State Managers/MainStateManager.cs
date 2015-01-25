@@ -59,7 +59,7 @@ public class MainStateManager : MonoBehaviour
 
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
 
-			Switch(startScreenState, startScreen, 1.0f);
+			Switch(bubbleState, bubble, 1.0f);
 
 			this.initialized = true;
 		}
@@ -287,7 +287,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED")
 		{
-			Switch(pigState, pig, 1.0f);
+			Switch(bubbleState, bubble, 1.0f);
 		}
 	}
 	
