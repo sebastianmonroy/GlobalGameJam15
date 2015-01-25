@@ -12,7 +12,11 @@ public class ObjectStateManager : MonoBehaviour
 
 	PolygonRenderer poly;
 
+<<<<<<< HEAD
 	public List<Frame> frames = new List<Frame>();
+=======
+	public List<GameObject> objects;
+>>>>>>> origin/master
 
 	void Start()
 	{
@@ -67,7 +71,9 @@ public class ObjectStateManager : MonoBehaviour
 	#endregion
 
 	#region clock
-	void ClockEnter() {}
+	void ClockEnter() {
+		Debug.Log ("Clock");
+	}
 
 	void ClockUpdate() {}
 
