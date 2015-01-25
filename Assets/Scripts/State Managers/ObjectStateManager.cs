@@ -12,7 +12,7 @@ public class ObjectStateManager : MonoBehaviour
 
 	PolygonRenderer poly;
 
-	public GameObject to_shape;
+	public List<GameObject> objects;
 
 	void Start()
 	{
@@ -58,8 +58,8 @@ public class ObjectStateManager : MonoBehaviour
 
 	void CircleUpdate() 
 	{
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			stateMachine.SwitchStates(squareState);
+		if (Vector3.Distance(objects[0].transform.position, objects[1].transform.position) < 1) {
+			stateMachine.SwitchStates(clockState);
 				}
 	}
 
@@ -67,7 +67,9 @@ public class ObjectStateManager : MonoBehaviour
 	#endregion
 
 	#region clock
-	void ClockEnter() {}
+	void ClockEnter() {
+		Debug.Log ("Clock");
+	}
 
 	void ClockUpdate() {}
 
@@ -77,7 +79,7 @@ public class ObjectStateManager : MonoBehaviour
 	#region square
 	void SquareEnter() {
 		//BlendHandler.Instance.Blend (this.gameObject, Resources.Load ("test") as GameObject);
-		BlendHandler.Instance.Blend (this.gameObject, to_shape, 3.0f);
+		//BlendHandler.Instance.Blend (this.gameObject, to_shape, 3.0f);
 
 		//poly.CreateNGon (4,1);
 
