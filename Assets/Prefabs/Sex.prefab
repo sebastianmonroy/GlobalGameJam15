@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400018}
-  - 114: {fileID: 11400004}
+  - 114: {fileID: 11400006}
   m_Layer: 0
   m_Name: Sex
   m_TagString: Untagged
@@ -707,7 +707,7 @@ MonoBehaviour:
   - {x: -.20791176, y: .978147566}
   Thickness: .150000006
   Filled: 0
---- !u!114 &11400004
+--- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6410a332e3052fd4e870990eaa55ac08, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c393132b86201846a3cf7713f89d021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine:
@@ -730,7 +730,7 @@ MonoBehaviour:
   - {fileID: 100004}
   - {fileID: 100008}
   - {fileID: 100010}
-  BackgroundColor: {r: 1, g: .448529422, b: .596856117, a: 1}
+  BackgroundColor: {r: .977941155, g: .424253881, b: .618999064, a: 1}
   Lighting: {fileID: 10800000}
 --- !u!1001 &100100000
 Prefab:
