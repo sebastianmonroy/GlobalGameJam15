@@ -24,7 +24,7 @@ public class ClockStateManager : FrameStateManager {
 	private float minute;
 	private float hour;
 	Vector3 lastMinPosition = Vector3.zero;
-	public GameObject fingerCollider;
+	public GameObject fingerCollider, minuteQuad;
 
 	void TickTockEnter() 
 	{
@@ -40,14 +40,15 @@ public class ClockStateManager : FrameStateManager {
 	{
 		if(GestureHandler.instance.fingers.Count > 0){	
 			Finger f = GestureHandler.instance.fingers[0] as Finger;
-			fingerCollider.transform.position = f.position;
-			Vector3 dir = DynamicDecorations[1].transform.localRotation.ToEuler();
-			dir.z = 0;
+			fingerCollider.transform.localPosition = f.GetWorldPosition();
+			Vector3 dir = DynamicDecorations[0].transform.localRotation.ToEuler();
+			//dir.z = 0;
 			//dir.x = 0;
 			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
 			Debug.DrawRay(DynamicDecorations[1].transform.position, dir, Color.red);
 			if(hit.collider != null) {
 				if (hit.collider.gameObject.name == "fingerPos"){
+					Debug.Log("looking at finger");
 					//facing finger position
 					secondTimer.Stop();
 					secondTimer = new Timer(1.0f);
