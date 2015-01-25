@@ -70,6 +70,7 @@ public class MainStateManager : MonoBehaviour
 		Destroy(machineObject, duration + 0.1f);
 		machineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
 		FrameStateManager nextMachine = machineObject.GetComponent<FrameStateManager>();
+		nextMachine.DisableAll();
 		BlendHandler.Instance.Blend(machine, nextMachine, duration);
 		//StartCoroutine(EnableAfterDelay(nextMachine))
 		machine = nextMachine;

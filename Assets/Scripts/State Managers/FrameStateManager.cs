@@ -12,6 +12,11 @@ public class FrameStateManager : MonoBehaviour
 	// DECORATIONS
 	public List<GameObject> DynamicDecorations = new List<GameObject>();
 	public List<GameObject> StaticDecorations = new List<GameObject>();
+
+	// QUADS
+	public List<GameObject> DynamicQuads = new List<GameObject>();
+	public List<GameObject> StaticQuads = new List<GameObject>();
+
 	public Color BackgroundColor;
 	public Light Lighting;
 
@@ -54,5 +59,7 @@ public class FrameStateManager : MonoBehaviour
 		{
 			deco.SetActive(false);
 		}
+
+		Lighting.gameObject.SetActive(false);
 	}
 }

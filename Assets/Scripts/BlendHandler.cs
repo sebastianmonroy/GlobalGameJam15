@@ -80,9 +80,66 @@ public class BlendHandler: MonoBehaviour {
 			StartCoroutine(FadeInObject(to.StaticDecorations[i], timer));
 		}
 
+		if (from.StaticQuads.Count < to.StaticQuads.Count)
+		{
+			for (int i = 0; i < from.StaticQuads.Count; i++)
+			{
+				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+			}
+
+			for (int i = from.StaticQuads.Count; i < to.StaticQuads.Count; i++)
+			{
+				StartCoroutine(FadeOutObject(from.StaticQuads[i], timer));
+			}
+		}
+		else if (from.StaticQuads.Count > to.StaticQuads.Count)
+		{
+			for (int i = 0; i < to.StaticQuads.Count; i++)
+			{
+				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+			}
+
+			for (int i = to.StaticQuads.Count; i < from.StaticQuads.Count; i++)
+			{
+				StartCoroutine(FadeInObject(to.StaticQuads[i], timer));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < from.StaticQuads.Count; i++)
+			{
+				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+			}
+		}
+
 		StartCoroutine(BlendBackground(from.BackgroundColor, to.BackgroundColor, timer));
 	
 		StartCoroutine(BlendLighting(from.Lighting, to.Lighting, timer));
+	}
+
+	IEnumerator BlendQuad(GameObject startQuad, GameObject endQuad, Timer timer)
+	{
+		Vector3 oldPosition = startQuad.transform.position;
+		Quaternion oldRotation = startQuad.transform.rotation;
+		Vector3 oldScale = startQuad.transform.localScale;
+		Color oldColor = startQuad.renderer.material.color;
+
+		Vector3 newPosition = endQuad.transform.position;
+		Quaternion newRotation = endQuad.transform.rotation;
+		Vector3 newScale = endQuad.transform.localScale;
+		Color newColor = endQuad.renderer.material.color;
+
+		while (timer.Percent() < 1f)
+		{
+			startQuad.transform.position = Vector3.Lerp(oldPosition, newPosition, timer.Percent());
+			startQuad.transform.rotation = Quaternion.Lerp(oldRotation, newRotation, timer.Percent());
+			startQuad.transform.localScale = Vector3.Lerp(oldScale, newScale, timer.Percent());
+			startQuad.renderer.material.color = Color.Lerp(oldColor, newColor, timer.Percent());
+			yield return 0;
+		}
+
+		startQuad.SetActive(false);
+		endQuad.SetActive(true);
 	}
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
