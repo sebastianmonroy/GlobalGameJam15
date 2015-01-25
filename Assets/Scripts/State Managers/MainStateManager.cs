@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState, startScreenState, pigState;
+	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState, startScreenState, pigState, spaceState, caterpillarState, cloudState, heartState;
 	SimpleState finishedState;
 
 	public GameObject machineObject;
 	public FrameStateManager machine;
-	public GameObject icecream, bubble, clock, sex, bicycle, paw, startScreen, pig;
+	public GameObject icecream, bubble, clock, sex, bicycle, paw, startScreen, pig, space, caterpillar, cloud, heart;
 
 	public bool initialized = false;
 
@@ -28,6 +28,10 @@ public class MainStateManager : MonoBehaviour
 		bicycleState = new SimpleState(BicycleEnter, BicycleUpdate, BicycleExit, "BICYCLE");
 		pawState = new SimpleState(PawEnter, PawUpdate, PawExit, "PAW");
 		startScreenState = new SimpleState(startScreenEnter, startScreenUpdate, startScreenExit, "STARTSCREEN");
+		spaceState = new SimpleState(SpaceEnter, SpaceUpdate, SpaceExit, "SPACE");
+		caterpillarState = new SimpleState(CaterpillarEnter, CaterpillarUpdate, CaterpillarExit, "CATERPILLAR");
+		cloudState = new SimpleState(CloudEnter, CloudUpdate, CloudExit, "CLOUD");
+		spaceState = new SimpleState(HeartEnter, HeartUpdate, HeartExit, "HEART");
 
 		Setup();
 	}
@@ -202,6 +206,76 @@ public class MainStateManager : MonoBehaviour
 	}
 	
 	void SexExit() {}
+	#endregion
+
+	#region PIG
+	void PigEnter() {}
+	void PigUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	void PigExit() {}
+	#endregion
+
+	#region SPACE
+	void SpaceEnter() {}
+	void SpaceUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	void SpaceExit() {}
+	#endregion
+
+	#region CATERPILLAR
+	void CaterpillarEnter() {}
+	void CaterpillarUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	void CaterpillarExit() {}
+	#endregion
+
+	#region CLOUD
+	void CloudEnter() {}
+	void CloudUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	void CloudExit() {}
+	#endregion
+
+	#region HEART
+	void HeartEnter() {}
+	void HeartUpdate() 
+	{
+		machine.Execute();
+		
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	void HeartExit() {}
 	#endregion
 
 	#region BICYCLE
