@@ -24,7 +24,7 @@ public class IceCreamStateManager : FrameStateManager {
 		{
 			if (finger.hitObject == vanilla && Vector2.Dot(finger.velocity, Vector2.up) > 10f)
 			{
-				vanilla.transform.localScale *= 0.995f;
+				vanilla.transform.localScale *= 0.975f;
 				break;
 			}
 		}
