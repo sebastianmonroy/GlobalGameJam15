@@ -431,8 +431,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 400048}
   - 114: {fileID: 11400016}
+  - 114: {fileID: 11400022}
   m_Layer: 0
-  m_Name: Piggy
+  m_Name: Pig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2091,6 +2092,45 @@ MonoBehaviour:
   - {x: -.10395588, y: .489073783}
   Thickness: 1
   Filled: 0
+--- !u!114 &11400022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ca511282ba23347b80558d3021954c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stateMachine:
+    currentState: 
+  Polygons:
+  - {fileID: 100052}
+  - {fileID: 100050}
+  - {fileID: 100046}
+  - {fileID: 100032}
+  - {fileID: 100030}
+  - {fileID: 100042}
+  - {fileID: 100040}
+  - {fileID: 100028}
+  - {fileID: 100026}
+  - {fileID: 100034}
+  Decorations:
+  - {fileID: 100014}
+  - {fileID: 100012}
+  - {fileID: 100010}
+  - {fileID: 100020}
+  - {fileID: 100018}
+  - {fileID: 100016}
+  - {fileID: 100024}
+  - {fileID: 100022}
+  - {fileID: 100006}
+  - {fileID: 100004}
+  - {fileID: 100002}
+  - {fileID: 100000}
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
+  Lighting: {fileID: 10800000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -167,7 +167,7 @@ GameObject:
   - 4: {fileID: 400018}
   - 114: {fileID: 11400004}
   m_Layer: 0
-  m_Name: heart
+  m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -687,17 +687,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 100018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2e43d194218a34e9ef61000845da96, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ba589768c2c6364c921b69c40cbcfa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine:
     currentState: 
-  Polygons: []
-  Decorations: []
-  BackgroundColor: {r: .527726471, g: .0576340631, b: .602941155, a: 1}
+  Polygons:
+  - {fileID: 100010}
+  - {fileID: 100012}
+  Decorations:
+  - {fileID: 100008}
+  - {fileID: 100006}
+  - {fileID: 100004}
+  - {fileID: 100002}
+  - {fileID: 100000}
+  BackgroundColor: {r: 0, g: 0, b: 0, a: 0}
   Lighting: {fileID: 10800000}
-  BigBubble: {fileID: 0}
-  SmallBubble: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

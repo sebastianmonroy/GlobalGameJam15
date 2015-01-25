@@ -471,7 +471,11 @@ MonoBehaviour:
   bicycle: {fileID: 100016, guid: b3c3e09c10f95ce4aa5de271d9a843b6, type: 2}
   paw: {fileID: 100002, guid: 5a574e756fc8ca7419e10a53eaeb7dae, type: 2}
   startScreen: {fileID: 100016, guid: a652600e88237cd4ebd2e248cc67b85d, type: 2}
-  pig: {fileID: 0}
+  pig: {fileID: 100048, guid: cfba2674f6c157c4b99e8eaacc4003a7, type: 2}
+  space: {fileID: 100048, guid: 0512078ed07a95c4dadef6fe08884062, type: 2}
+  caterpillar: {fileID: 100018, guid: 31b3ca5aad862f545bf017e1fc9ad7b0, type: 2}
+  cloud: {fileID: 100018, guid: 48f037739a757854599f23aa1b275931, type: 2}
+  heart: {fileID: 100018, guid: 7067efacb23d1d64dbea6c9cbee66bbe, type: 2}
   initialized: 0
   switching: 0
   nextMachineObject: {fileID: 0}
