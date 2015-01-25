@@ -40,8 +40,9 @@ public class ClockStateManager : FrameStateManager {
 		float endAmt = 360f/60f;
 		foreach(Finger f in GestureHandler.instance.fingers){
 			//stop clock movement
-			if(f.hitObject && secondTimer.IsFinished()) {
+			/*if(f.hitObject) {
 				if(f.hitObject.transform.parent.name == "Minute Hand" || f.hitObject.transform.parent.name == "Hour Hand"){
+					
 					timer.SetFinished();
 					secondTimer.SetFinished();
 					secondTimer.IsFinished();
@@ -50,7 +51,7 @@ public class ClockStateManager : FrameStateManager {
 					IncrementTime();
 					StartCoroutine(tick(timer, endAmt));
 				}
-			}
+			}*/
 			
 			
 			/*if(f.hitObject) {
@@ -71,6 +72,8 @@ public class ClockStateManager : FrameStateManager {
 				} else {
 					endAmt *= -5f;
 				}*/
+				
+				
 		
 		}
 		
