@@ -9,6 +9,7 @@ public class Timer {
 	public bool Stopped {get; private set;}
 	bool realTime;
 	float startTime;
+	bool forceFinish = false;
 
 	public Timer(float interval, bool realTime = false){
 		this.realTime = realTime;
@@ -22,9 +23,10 @@ public class Timer {
 	
 	public bool IsFinished(){
 		if (!Stopped){
-			if (Percent() >= 1){
+			if (Percent() >= 1 || forceFinish){
 				if (Repeating){
 					Restart();
+					forceFinish = false;
 				}
 				else {
 					Stop();
@@ -38,6 +40,11 @@ public class Timer {
 		else{
 			return false;
 		}
+	}
+	
+	public void SetFinished(){
+		Stop();
+		forceFinish = true;
 	}
 
 	public void SetInterval(float interval){

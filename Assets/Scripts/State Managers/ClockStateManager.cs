@@ -36,21 +36,48 @@ public class ClockStateManager : FrameStateManager {
 
 	void TickTockUpdate() 
 	{
+		Timer timer = new Timer(0.1f);
+		float endAmt = 360f/60f;
 		foreach(Finger f in GestureHandler.instance.fingers){
-			if(f.hitObject) {
+			//stop clock movement
+			if(f.hitObject && secondTimer.IsFinished()) {
 				if(f.hitObject.transform.parent.name == "Minute Hand" || f.hitObject.transform.parent.name == "Hour Hand"){
+					timer.SetFinished();
+					secondTimer.SetFinished();
+					secondTimer.IsFinished();
+					endAmt *= 5f;
+					Debug.Log("force finish");
 					IncrementTime();
-					Timer timer = new Timer(0.25f);
-					StartCoroutine(tick(timer));
+					StartCoroutine(tick(timer, endAmt));
 				}
 			}
+			
+			
+			/*if(f.hitObject) {
+				if(f.hitObject.transform.parent.name == "Minute Hand" || f.hitObject.transform.parent.name == "Hour Hand"){
+					Debug.Log("hit hand");
+					endAmt *= 5f;
+					//StartCoroutine(tick(timer));
+				}
+			}*/
+			/*if(f.prevPositions.Count > 1) {
+				Vector2 newestPos = f.prevPositions[f.prevPositions.Count-1];
+				Vector2 comparePos = f.prevPositions[f.prevPositions.Count-2];
+				Vector2 clockCenter = PolygonObjects[0].transform.position;
+				
+				if(((comparePos.x - clockCenter.x)*(newestPos.y - clockCenter.y) - (comparePos.y - clockCenter.y)*(newestPos.x - clockCenter.x)) > 0){
+					//clockwise movement
+					endAmt *= 5f;
+				} else {
+					endAmt *= -5f;
+				}*/
+		
 		}
 		
 		if (secondTimer.IsFinished())
 		{
 			IncrementTime();
-			Timer timer = new Timer(0.1f);
-			StartCoroutine(tick(timer));
+			StartCoroutine(tick(timer, endAmt));
 		}
 	}
 	void TickTockExit() {}
@@ -77,12 +104,12 @@ public class ClockStateManager : FrameStateManager {
 		}
 	}
 
-	IEnumerator tick(Timer timer)
+	IEnumerator tick(Timer timer, float endAmt = 360f/60f)
 	{
 		Quaternion minuteStartRotation = MinuteHand.transform.localRotation;
-		Quaternion minuteEndRotation = minuteStartRotation * Quaternion.AngleAxis(360f/60f, Vector3.up);
+		Quaternion minuteEndRotation = minuteStartRotation * Quaternion.AngleAxis(endAmt, Vector3.up);
 		Quaternion hourStartRotation = HourHand.transform.localRotation;
-		Quaternion hourEndRotation = hourStartRotation * Quaternion.AngleAxis(360f/60f/60f, Vector3.up);
+		Quaternion hourEndRotation = hourStartRotation * Quaternion.AngleAxis(endAmt/60f, Vector3.up);
 
 		while (!timer.IsFinished())
 		{
