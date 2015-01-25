@@ -4,11 +4,15 @@ using System.Collections.Generic;
 
 
 public class TouchManager : MonoBehaviour {
+	public static TouchManager Instance;
 	GameObject selectedObj;
-	
+	Vector3 dragOffset;
+
+
+
 	// Use this for initialization
 	void Start () {
-
+		Instance = this;
 	}
 	
 	// Update is called once per frame
@@ -42,6 +46,10 @@ public class TouchManager : MonoBehaviour {
 			if (hit.transform.tag == "Polygon"){
 
 				selectedObj = hit.transform.gameObject;
+
+				Vector3 dragPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				dragPoint.z = 0;
+				dragOffset = selectedObj.transform.position - dragPoint;
 			}
 		}
 	}
@@ -52,7 +60,7 @@ public class TouchManager : MonoBehaviour {
 		if (selectedObj != null) {
 			Vector3 objPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			objPos.z = 0;
-			selectedObj.transform.position = objPos;
+			selectedObj.transform.position = objPos + dragOffset;
 		}
 	}
 	

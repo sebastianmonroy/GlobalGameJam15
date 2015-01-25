@@ -12,7 +12,7 @@ public class ObjectStateManager : MonoBehaviour
 
 	PolygonRenderer poly;
 
-	public List<GameObject> objects;
+	public List<Frame> frames = new List<Frame>();
 
 	void Start()
 	{
@@ -33,14 +33,14 @@ public class ObjectStateManager : MonoBehaviour
 		finishedState = new SimpleState(null, null, null, "FINISHED");
 		*/
 
-		Circle();
+		Setup();
 	}
 	void Update () 
 	{
 		Execute();
 	}
 
-	public void Circle () 
+	public void Setup () 
 	{
 		stateMachine.SwitchStates(circleState);
 	}
@@ -58,9 +58,9 @@ public class ObjectStateManager : MonoBehaviour
 
 	void CircleUpdate() 
 	{
-		if (Vector3.Distance(objects[0].transform.position, objects[1].transform.position) < 1) {
-			stateMachine.SwitchStates(clockState);
-				}
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			stateMachine.SwitchStates(squareState);
+		}
 	}
 
 	void CircleExit() {}
@@ -79,7 +79,7 @@ public class ObjectStateManager : MonoBehaviour
 	#region square
 	void SquareEnter() {
 		//BlendHandler.Instance.Blend (this.gameObject, Resources.Load ("test") as GameObject);
-		//BlendHandler.Instance.Blend (this.gameObject, to_shape, 3.0f);
+		BlendHandler.Instance.Blend(frames[0], frames[1], 3.0f);
 
 		//poly.CreateNGon (4,1);
 
