@@ -24,13 +24,12 @@ public class Finger
 	{
 		this.touch = touch;
 		this.id = touch.fingerId;
-		this.position = GetWorldPosition();
+		this.position = touch.position;
 		this.isValid = true;
 		this.isMouse = false;
 
-		Ray startRay = Camera.main.ScreenPointToRay(position);
-		RaycastHit rayhit = new RaycastHit();
-		if (Physics.Raycast(startRay, out rayhit, Mathf.Infinity)) {
+		RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(position), Vector3.forward, Mathf.Infinity);
+		if (rayhit.collider != null) {
 			this.hitObject = rayhit.collider.gameObject;
 		}
 	}
@@ -41,6 +40,11 @@ public class Finger
 		this.position = mousePosition;
 		this.isValid = true;
 		this.isMouse = true;
+		
+		RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(position), Vector3.forward, Mathf.Infinity);
+		if (rayhit.collider != null) {
+			this.hitObject = rayhit.collider.gameObject;
+		}
 	}
 
 	public void Update(Touch touch)
@@ -56,7 +60,7 @@ public class Finger
 		prevPositions.Add(this.position);
 
 
-		this.position = GetWorldPosition();
+		this.position = touch.position;
 
 		// calculate finger velocity
 		Vector2 sumDeltas = Vector2.zero;
@@ -70,7 +74,7 @@ public class Finger
 
 		this.isValid = true;
 
-		Debug.DrawRay(new Vector3(this.position.x, this.position.y, -2f), Vector3.forward * 3f, Color.red);
+		Debug.DrawRay(new Vector3(this.GetWorldPosition().x, this.GetWorldPosition().y, -2f), Vector3.forward * 3f, Color.red);
 	}
 
 	public Vector2 GetScreenPosition() {
@@ -81,13 +85,23 @@ public class Finger
 		Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 0f));
 		return worldPos;
 	}
+	
+	public Vector3 GetWorldPosition3() {
+		Vector2 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, 0f));
+		Vector3 worldPos3 = new Vector3(worldPos.x, worldPos.y, 0);
+		return worldPos3;
+	}
 
 	public override string ToString() {
 		string output = "";
 		output += "Finger " + id + " ";
 		output += "@ {" + GetWorldPosition().x + ", " + GetWorldPosition().y + "} ";
 		output += " with velocity {" + velocity.x + ", " + velocity.y + "}";
-
+		if (hitObject != null)
+		{
+			output += " hit object " + hitObject.name;
+		}
+		
 		return output;
 	}
 }

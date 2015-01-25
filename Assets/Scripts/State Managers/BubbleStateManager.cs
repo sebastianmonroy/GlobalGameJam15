@@ -29,7 +29,13 @@ public class BubbleStateManager : FrameStateManager {
 			Mathf.PingPong(Time.time/10, 0.1f)+0.9f
 		);
 		
-		
+		foreach(Finger f in GestureHandler.instance.fingers){
+			if(f.hitObject == GO1){
+				GO1.transform.position = f.GetWorldPosition3();
+			} else if (f.hitObject == GO2){
+				GO2.transform.position = f.GetWorldPosition3();
+			}
+		}
 	}
 	void floatExit() {}
 	#endregion
