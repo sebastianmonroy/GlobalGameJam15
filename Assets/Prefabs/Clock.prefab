@@ -1735,6 +1735,8 @@ MonoBehaviour:
   - {fileID: 100008}
   BackgroundColor: {r: 0, g: .958620548, b: 1, a: 1}
   Lighting: {fileID: 10800000}
+  MinuteHand: {fileID: 100032}
+  HourHand: {fileID: 100030}
 --- !u!114 &11400028
 MonoBehaviour:
   m_ObjectHideFlags: 1
