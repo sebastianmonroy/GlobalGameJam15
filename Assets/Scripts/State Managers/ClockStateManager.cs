@@ -42,6 +42,8 @@ public class ClockStateManager : FrameStateManager {
 			Finger f = GestureHandler.instance.fingers[0] as Finger;
 			fingerCollider.transform.localPosition = f.GetWorldPosition();
 			Vector3 dir = DynamicDecorations[0].transform.localRotation.ToEuler();
+			dir = minuteQuad.transform.right;
+			dir = new Vector3(dir.y, -dir.x, dir.z);
 			//dir.z = 0;
 			//dir.x = 0;
 			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
@@ -57,7 +59,7 @@ public class ClockStateManager : FrameStateManager {
 			} else {	
 				secondTimer.Stop();
 				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150* Time.deltaTime);
-				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150/60f* Time.deltaTime);
+				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (150/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 			}
