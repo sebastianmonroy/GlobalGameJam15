@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BubbleStateManager : FrameStateManager {
-
+public class BubbleStateManager : FrameStateManager 
+{
 	SimpleState floatState, finishedState;
 	public GameObject BigBubble, SmallBubble;
 	
@@ -16,7 +16,9 @@ public class BubbleStateManager : FrameStateManager {
 	
 	#region FLOAT
 	void floatEnter() {}
+
 	void floatUpdate() {
+		Debug.Log("bubble float");
 		BigBubble.transform.localScale = new Vector3(
 			Mathf.PingPong(Time.time/8, 0.07f)+0.93f,
 			Mathf.PingPong(Time.time/5, 0.15f)+0.85f,
@@ -27,7 +29,7 @@ public class BubbleStateManager : FrameStateManager {
 			Mathf.PingPong(Time.time/8, 0.15f)+0.85f,
 			Mathf.PingPong(Time.time/10, 0.1f)+0.9f
 		);
-		
+
 		foreach(Finger f in GestureHandler.instance.fingers)
 		{
 			if (f.hitObject != null)

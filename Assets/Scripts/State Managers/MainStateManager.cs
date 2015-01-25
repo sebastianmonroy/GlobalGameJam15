@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState; startScreenState;
+	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState, startScreenState, pigState;
 	SimpleState finishedState;
 
 	public GameObject machineObject;
 	public FrameStateManager machine;
-	public GameObject icecream, bubble, clock, sex, bicycle, paw, startScreen;
+	public GameObject icecream, bubble, clock, sex, bicycle, paw, startScreen, pig;
 
 	public bool initialized = false;
 
@@ -107,24 +107,30 @@ public class MainStateManager : MonoBehaviour
 	}
 
 	#region BUBBLE
-	void BubbleEnter() {
-		
+	Timer delayTimer;
+	void BubbleEnter() 
+	{
+		delayTimer = new Timer(1.0f);	
 	}
 	
 	void BubbleUpdate() 
 	{
-		machine.Execute();
-		
-		if (machine.stateMachine.currentState == "FINISHED")
+		Debug.Log("asdfs");
+		if (delayTimer.Percent() >= 1f)
 		{
-			Switch(clockState, clock, 1.0f);
+			machine.Execute();
+			
+			if (machine.stateMachine.currentState == "FINISHED")
+			{
+				Switch(clockState, clock, 1.0f);
+			}
 		}
 	}
 	
 	void BubbleExit() {}
 	#endregion
 	
-	#region BUBBLE
+	#region STARTSCREEN
 	void startScreenEnter() {
 		
 	}
@@ -207,7 +213,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED")
 		{
-		
+			Switch(pigState, pig, 1.0f);
 		}
 	}
 	
