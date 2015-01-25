@@ -60,6 +60,8 @@ public class BlendHandler: MonoBehaviour {
 		}
 
 		StartCoroutine(BlendBackground(from.BackgroundColor, to.BackgroundColor, timer));
+	
+		StartCoroutine(BlendLighting(from.Lighting, to.Lighting, timer));
 	}
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
@@ -67,6 +69,27 @@ public class BlendHandler: MonoBehaviour {
 		while (!timer.IsFinished())
 		{
 			Background.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			yield return 0;
+		}
+	}
+
+	IEnumerator BlendLighting(Light startLight, Light endLight, Timer timer)
+	{
+		Color startColor = startLight.color;
+		Color endColor = endLight.color;
+		Vector3 startPosition = startLight.transform.position;
+		Vector3 endPosition = endLight.transform.position;
+		float startRange = startLight.range;
+		float endRange = endLight.range;
+		float startIntensity = startLight.intensity;
+		float endIntensity = endLight.intensity;
+
+		while (!timer.IsFinished())
+		{
+			startLight.color = Color.Lerp(startColor, endColor, timer.Percent());
+			startLight.transform.position = Vector3.Lerp(startPosition, endPosition, timer.Percent());
+			startLight.range = Mathf.Lerp(startRange, endRange, timer.Percent());
+			startLight.intensity = Mathf.Lerp(startIntensity, endIntensity, timer.Percent());
 			yield return 0;
 		}
 	}
