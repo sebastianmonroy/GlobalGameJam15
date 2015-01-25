@@ -731,6 +731,8 @@ MonoBehaviour:
   - {fileID: 100010}
   BackgroundColor: {r: .977941155, g: .424253881, b: .618999064, a: 1}
   Lighting: {fileID: 10800000}
+  MaleRoot: {fileID: 100002}
+  FemaleRoot: {fileID: 100000}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
