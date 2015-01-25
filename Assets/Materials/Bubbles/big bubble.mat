@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: handlebars
+  m_Name: big bubble
   m_Shader: {fileID: 4800000, guid: d8f34aff92dfcde4b81f1eaf1a2acad8, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -29,4 +29,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .376730114, g: .4436225, b: .764705896, a: 1}
+        second: {r: .83088237, g: .598724067, b: .598724067, a: 1}

@@ -470,6 +470,9 @@ MonoBehaviour:
   sex: {fileID: 100018, guid: 4daa71d72976d504691aeafe3dda2617, type: 2}
   bicycle: {fileID: 100016, guid: b3c3e09c10f95ce4aa5de271d9a843b6, type: 2}
   initialized: 0
+  switching: 0
+  nextMachineObject: {fileID: 0}
+  nextMachine: {fileID: 0}
 --- !u!1001 &1864877901
 Prefab:
   m_ObjectHideFlags: 0
