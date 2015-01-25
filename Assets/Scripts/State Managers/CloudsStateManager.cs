@@ -42,7 +42,7 @@ public class CloudsStateManager : FrameStateManager {
 			}
 		}
 
-		if (scaling > 5f)
+		if (scaling > 2f)
 		{
 			stateMachine.SwitchStates(finishedState);
 		}
@@ -50,8 +50,19 @@ public class CloudsStateManager : FrameStateManager {
 	
 	void PuffExit() 
 	{
-	
+		StartCoroutine(Shrink());
 	}
 	#endregion
 	
+		IEnumerator Shrink()
+		{
+			Timer timer = new Timer(0.5f);
+			Vector3 startScale = grayCloud.transform.localScale;
+			Vector3 endScale = grayCloud.transform.localScale / 2f;
+			while (timer.Percent() < 1f)
+			{
+				grayCloud.transform.localScale = Vector3.Lerp(startScale, endScale, timer.Percent());
+				yield return 0;
+			}
+		}
 }

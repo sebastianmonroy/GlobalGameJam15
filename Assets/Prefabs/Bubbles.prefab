@@ -804,8 +804,7 @@ MonoBehaviour:
   - {fileID: 100000}
   - {fileID: 100010}
   - {fileID: 100008}
-  DynamicDecorations: []
-  StaticDecorations: []
+  Decorations: []
   BackgroundColor: {r: .992647052, g: .83156842, b: .627703309, a: 1}
   Lighting: {fileID: 10800000}
   BigBubble: {fileID: 100018}

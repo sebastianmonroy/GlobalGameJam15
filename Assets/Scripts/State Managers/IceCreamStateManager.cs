@@ -29,7 +29,7 @@ public class IceCreamStateManager : FrameStateManager {
 			}
 		}
 
-		if (vanilla.transform.localScale.x <= 0.75f)
+		if (vanilla.transform.localScale.x <= 0.6f)
 		{
 			stateMachine.SwitchStates(finishedState);
 		}
