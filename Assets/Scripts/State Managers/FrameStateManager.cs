@@ -7,15 +7,11 @@ public class FrameStateManager : MonoBehaviour
 	public SimpleStateMachine stateMachine;
 
 	// POLYGONS
-	public List<GameObject> PolygonObjects = new List<GameObject>();
+	public List<GameObject> Polygons = new List<GameObject>();
 
 	// DECORATIONS
 	public List<GameObject> DynamicDecorations = new List<GameObject>();
 	public List<GameObject> StaticDecorations = new List<GameObject>();
-
-	// QUADS
-	public List<GameObject> DynamicQuads = new List<GameObject>();
-	public List<GameObject> StaticQuads = new List<GameObject>();
 
 	public Color BackgroundColor;
 	public Light Lighting;
@@ -27,7 +23,7 @@ public class FrameStateManager : MonoBehaviour
 
 	public void EnableAll()
 	{
-		foreach (GameObject polygon in PolygonObjects)
+		foreach (GameObject polygon in Polygons)
 		{
 			polygon.SetActive(true);
 		}
@@ -45,7 +41,7 @@ public class FrameStateManager : MonoBehaviour
 
 	public void DisableAll()
 	{
-		foreach (GameObject polygon in PolygonObjects)
+		foreach (GameObject polygon in Polygons)
 		{
 			polygon.SetActive(false);
 		}

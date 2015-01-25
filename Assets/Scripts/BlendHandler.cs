@@ -38,77 +38,92 @@ public class BlendHandler: MonoBehaviour {
 		Timer longTimer = new Timer(timer.Interval * 2f);
 		blendDone = false;
 
-		List<GameObject> fromPolys = from.PolygonObjects;
-		List<GameObject> toPolys = to.PolygonObjects;
+		// Polygons
+		List<GameObject> fromPolys = from.Polygons;
+		List<GameObject> toPolys = to.Polygons;
 
-		while (from.PolygonObjects.Count < to.PolygonObjects.Count)
+		while (from.Polygons.Count < to.Polygons.Count)
 		{
 			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
 			newPoly.transform.parent = from.transform;
 			fromPolys.Add(newPoly);
 		}
 
-		while (to.PolygonObjects.Count < from.PolygonObjects.Count)
+		while (to.Polygons.Count < from.Polygons.Count)
 		{
 			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
 			newPoly.transform.parent = to.transform;
 			toPolys.Add(newPoly);
 		}
 
-		for (int i = 0; i < from.PolygonObjects.Count; i++)
+		for (int i = 0; i < fromPolys.Count; i++)
 		{
-			StartCoroutine(BlendPolygonObject(from.PolygonObjects[i], to.PolygonObjects[i], timer));
+			StartCoroutine(BlendPolygonObject(from.Polygons[i], to.Polygons[i], timer));
 		}
 
-		for (int i = 0; i < from.DynamicDecorations.Count; i++)
+		// Static Decorations
+		if (from.StaticDecorations.Count < to.StaticDecorations.Count)
 		{
-			StartCoroutine(FadeOutObject(from.DynamicDecorations[i], timer));
-		}
-
-		for (int i = 0; i < to.DynamicDecorations.Count; i++)
-		{
-			StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer));
-		}
-
-		for (int i = 0; i < from.StaticDecorations.Count; i++)
-		{
-			StartCoroutine(FadeOutObject(from.StaticDecorations[i], timer));
-		}
-
-		for (int i = 0; i < to.StaticDecorations.Count; i++)
-		{
-			StartCoroutine(FadeInObject(to.StaticDecorations[i], timer));
-		}
-
-		if (from.StaticQuads.Count < to.StaticQuads.Count)
-		{
-			for (int i = 0; i < from.StaticQuads.Count; i++)
+			for (int i = 0; i < from.StaticDecorations.Count; i++)
 			{
-				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+				StartCoroutine(BlendObject(from.StaticDecorations[i], to.StaticDecorations[i], timer));
 			}
 
-			for (int i = from.StaticQuads.Count; i < to.StaticQuads.Count; i++)
+			for (int i = from.StaticDecorations.Count; i < to.StaticDecorations.Count; i++)
 			{
-				StartCoroutine(FadeOutObject(from.StaticQuads[i], timer));
+				StartCoroutine(FadeOutObject(from.StaticDecorations[i], timer));
 			}
 		}
-		else if (from.StaticQuads.Count > to.StaticQuads.Count)
+		else if (from.StaticDecorations.Count > to.StaticDecorations.Count)
 		{
-			for (int i = 0; i < to.StaticQuads.Count; i++)
+			for (int i = 0; i < to.StaticDecorations.Count; i++)
 			{
-				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+				StartCoroutine(BlendObject(from.StaticDecorations[i], to.StaticDecorations[i], timer));
 			}
 
-			for (int i = to.StaticQuads.Count; i < from.StaticQuads.Count; i++)
+			for (int i = to.StaticDecorations.Count; i < from.StaticDecorations.Count; i++)
 			{
-				StartCoroutine(FadeInObject(to.StaticQuads[i], timer));
+				StartCoroutine(FadeInObject(to.StaticDecorations[i], timer));
 			}
 		}
 		else
 		{
-			for (int i = 0; i < from.StaticQuads.Count; i++)
+			for (int i = 0; i < from.StaticDecorations.Count; i++)
 			{
-				StartCoroutine(BlendQuad(from.StaticQuads[i], to.StaticQuads[i], timer));
+				StartCoroutine(BlendObject(from.StaticDecorations[i], to.StaticDecorations[i], timer));
+			}
+		}
+
+		// Dynamic Decorations
+		if (from.DynamicDecorations.Count < to.DynamicDecorations.Count)
+		{
+			for (int i = 0; i < from.DynamicDecorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.DynamicDecorations[i], to.DynamicDecorations[i], timer));
+			}
+
+			for (int i = from.DynamicDecorations.Count; i < to.DynamicDecorations.Count; i++)
+			{
+				StartCoroutine(FadeOutObject(from.DynamicDecorations[i], timer));
+			}
+		}
+		else if (from.DynamicDecorations.Count > to.DynamicDecorations.Count)
+		{
+			for (int i = 0; i < to.DynamicDecorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.DynamicDecorations[i], to.DynamicDecorations[i], timer));
+			}
+
+			for (int i = to.DynamicDecorations.Count; i < from.DynamicDecorations.Count; i++)
+			{
+				StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < from.DynamicDecorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.DynamicDecorations[i], to.DynamicDecorations[i], timer));
 			}
 		}
 
@@ -117,7 +132,7 @@ public class BlendHandler: MonoBehaviour {
 		StartCoroutine(BlendLighting(from.Lighting, to.Lighting, timer));
 	}
 
-	IEnumerator BlendQuad(GameObject startQuad, GameObject endQuad, Timer timer)
+	IEnumerator BlendObject(GameObject startQuad, GameObject endQuad, Timer timer)
 	{
 		Vector3 oldPosition = startQuad.transform.position;
 		Quaternion oldRotation = startQuad.transform.rotation;
