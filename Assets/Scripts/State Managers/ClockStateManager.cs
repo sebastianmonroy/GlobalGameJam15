@@ -24,6 +24,7 @@ public class ClockStateManager : FrameStateManager {
 	private float minute;
 	private float hour;
 	Vector3 lastMinPosition = Vector3.zero;
+	public GameObject fingerCollider;
 
 	void TickTockEnter() 
 	{
@@ -39,13 +40,11 @@ public class ClockStateManager : FrameStateManager {
 	{
 		if(GestureHandler.instance.fingers.Count > 0){	
 			Finger f = GestureHandler.instance.fingers[0] as Finger;
-			RaycastHit2D hit = Physics2D.Raycase(DynamicDecorations[0].transform.position, Vector2.forward);
+			fingerCollider.transform.position = f.position;
+			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, DynamicDecorations[0].transform.localRotation.ToEuler());
+			Debug.DrawRay(DynamicDecorations[0].transform.position, DynamicDecorations[0].transform.localRotation.ToEuler(), Color.red);
 			if(hit.collider != null) {
-				if(hit.collider.gameObject.name = "noon") {
-					//facing noon position
-					Timer hourTimer = new Timer(5.0f);
-					StartCoroutine(HourPassed(hourTimer));
-				} else if (hit.collider.gameObject.name = "fingerPos"){
+				if (hit.collider.gameObject.name == "fingerPos"){
 					//facing finger position
 					secondTimer.Stop();
 					secondTimer = new Timer(1.0f);
@@ -54,6 +53,7 @@ public class ClockStateManager : FrameStateManager {
 			} else {	
 				secondTimer.Stop();
 				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150* Time.deltaTime);
+				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150/60f* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 			}
