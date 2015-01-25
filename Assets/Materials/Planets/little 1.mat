@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: little
+  m_Name: little 1
   m_Shader: {fileID: 4800000, guid: d8f34aff92dfcde4b81f1eaf1a2acad8, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
@@ -29,4 +29,4 @@ Material:
       data:
         first:
           name: _Color
-        second: {r: .662771404, g: .91911763, b: .175713673, a: 1}
+        second: {r: .992697775, g: 1, b: .867647052, a: 1}
