@@ -3,30 +3,108 @@ using System.Collections;
 
 public class BlendHandler: MonoBehaviour {
 	public static BlendHandler Instance;
+	public GameObject Background;
 	public float speedAlteration = 1f;
 	public bool blendDone = true;
 
-	void Start(){
+	void Start()
+	{
 		Instance = this;
 	}
 
-	public void Blend(GameObject _bFrom, GameObject _bTo, Timer timer){
+	public void Blend(GameObject _bFrom, GameObject _bTo, Timer timer)
+	{
 		blendDone = false;
-		StartCoroutine(BlendRoutine(_bFrom, _bTo, timer));
+		StartCoroutine(BlendPolygonObject(_bFrom, _bTo, timer));
 	}
 	
-	public void Blend(GameObject _bFrom, GameObject _bTo, float duration){
+	public void Blend(GameObject _bFrom, GameObject _bTo, float duration)
+	{
 		blendDone = false;
 		Timer timer = new Timer(duration);
-		StartCoroutine(BlendRoutine(_bFrom, _bTo, timer));
+		Blend(_bFrom, _bTo, timer);
+	}
+
+	public void Blend(Frame from, Frame to, float duration)
+	{
+		Timer timer = new Timer(duration);
+		Blend(from, to, timer);
+	}
+
+	public void Blend(Frame from, Frame to, Timer timer)
+	{
+		blendDone = false;
+		for (int i = 0; i < from.PolygonObjects.Count; i++)
+		{
+			StartCoroutine(BlendPolygonObject(from.PolygonObjects[i], to.PolygonObjects[i], timer));
+		}
+
+		for (int i = 0; i < from.DynamicDecorations.Count; i++)
+		{
+			StartCoroutine(FadeOutObject(from.DynamicDecorations[i], timer));
+		}
+
+		for (int i = 0; i < to.DynamicDecorations.Count; i++)
+		{
+			StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer));
+		}
+
+		for (int i = 0; i < from.StaticDecorations.Count; i++)
+		{
+			StartCoroutine(FadeOutObject(from.StaticDecorations[i], timer));
+		}
+
+		for (int i = 0; i < to.StaticDecorations.Count; i++)
+		{
+			StartCoroutine(FadeInObject(to.StaticDecorations[i], timer));
+		}
+
+		StartCoroutine(BlendBackground(from.BackgroundColor, to.BackgroundColor, timer));
+	}
+
+	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
+	{
+		while (!timer.IsFinished())
+		{
+			Background.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			yield return 0;
+		}
+	}
+
+	IEnumerator FadeOutObject(GameObject fadeObject, Timer timer)
+	{
+		Color startColor = fadeObject.renderer.material.color;
+		Color endColor = fadeObject.renderer.material.color;
+		endColor.a = 0f;
+
+		while (!timer.IsFinished())
+		{
+			fadeObject.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			yield return 0;
+		}
 	}
 	
-	IEnumerator BlendRoutine(GameObject from, GameObject to, Timer timer){
+	IEnumerator FadeInObject(GameObject fadeObject, Timer timer)
+	{
+		Color startColor = fadeObject.renderer.material.color;
+		Color endColor = fadeObject.renderer.material.color;
+		startColor.a = 0f;
+
+		while (!timer.IsFinished())
+		{
+			fadeObject.renderer.material.color = Color.Lerp(startColor, endColor, timer.Percent());
+			yield return 0;
+		}
+	}
+
+	IEnumerator BlendPolygonObject(GameObject from, GameObject to, Timer timer)
+	{
 		Debug.Log("start coroutine");
 		PolygonRenderer polygon1 = from.GetComponent<PolygonRenderer>();
 		PolygonRenderer polygon2 = to.GetComponent<PolygonRenderer>();
 		
-		if(polygon1.Vertices.Length == polygon2.Vertices.Length){
+		if (polygon1.Vertices.Length == polygon2.Vertices.Length)
+		{
 			int s = polygon1.Vertices.Length;
 			Vector2[] oldVertices = polygon1.Vertices;
 			Quaternion oldRotation = from.transform.rotation;
@@ -42,8 +120,10 @@ public class BlendHandler: MonoBehaviour {
 			Vector3 newPosition = to.transform.position;
 			float newThick = polygon2.Thickness;
 			
-			while(!timer.IsFinished()) {
-				for(int i = 0; i < s; i++){
+			while (!timer.IsFinished()) 
+			{
+				for (int i = 0; i < s; i++)
+				{
 					//if(i == 0) Debug.Log("moving from " + polygon1.Vertices[i] + " to " + polygon2.Vertices[i]);
 					polygon1.Vertices[i] = Vector2.Lerp(oldVertices[i], newVertices[i], timer.Percent());
 					//color, rotation, thickness, scale
@@ -57,7 +137,9 @@ public class BlendHandler: MonoBehaviour {
 				polygon1.Modify();
 				yield return 0;
 			}
-		} else {
+		} 
+		else 
+		{
 			Debug.LogWarning("Meshes have different amount of vertices");
 			yield return 0;
 		}
