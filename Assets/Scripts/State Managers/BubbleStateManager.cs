@@ -36,6 +36,11 @@ public class BubbleStateManager : FrameStateManager {
 				GO2.transform.position = f.GetWorldPosition3();
 			}
 		}
+
+		if (Vector3.Distance(GO1.transform.position, GO2.transform.position) <= GO1.transform.localScale.x)
+		{
+			stateMachine.SwitchStates(finishedState);
+		}
 	}
 	void floatExit() {}
 	#endregion

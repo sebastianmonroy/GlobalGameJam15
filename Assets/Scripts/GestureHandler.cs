@@ -27,13 +27,16 @@ public class GestureHandler : MonoBehaviour
 			mouse = new Finger(new Vector2(mousePosition.x, mousePosition.y));
 			//Debug.Log("mouse : " + mouse.GetWorldPosition().x + " " + mouse.GetWorldPosition().y);
 			mouse.isValid = true;
-		} else {
+		} 
+		else
+		{
 			mouse.isValid = false;
 		}
 
 		// Populate list of all current touches
 		List<Touch> newTouches = new List<Touch>();
-		foreach (Touch touch in Input.touches) {
+		foreach (Touch touch in Input.touches) 
+		{
 			newTouches.Add(touch);
 		}
 
@@ -46,10 +49,13 @@ public class GestureHandler : MonoBehaviour
 				if (touch.fingerId == finger.id) 
 				{
 					Vector3 touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-					if(Mathf.Abs(finger.position.x - touchPos.x) < dtError && Mathf.Abs(finger.position.y - touchPos.y) < dtError && finger.upTime > 0f && finger.upTime < doubleTapTime){
+					if (Mathf.Abs(finger.position.x - touchPos.x) < dtError && Mathf.Abs(finger.position.y - touchPos.y) < dtError && finger.upTime > 0f && finger.upTime < doubleTapTime)
+					{
 						Debug.Log("DOUBLE TAP");
 						finger.upTime = doubleTapTime;
-					} else {
+					} 
+					else 
+					{
 						finger.Update(touch);
 						newTouches.Remove(touch);
 						found = true;
@@ -59,9 +65,12 @@ public class GestureHandler : MonoBehaviour
 
 			if (!found) 
 			{
-				if(finger.upTime > doubleTapTime) {
+				if (finger.upTime > doubleTapTime) 
+				{
 					finger.isValid = false;
-				} else {
+				} 
+				else 
+				{
 					finger.upTime += 0.1f;
 				}
 			}

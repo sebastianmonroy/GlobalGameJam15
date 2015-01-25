@@ -5,11 +5,13 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState circleState, clockState, squareState, playState, disconnectState, bubbleState, finishedState, icecreamState;
+	SimpleState clockState, bubbleState, icecreamState;
+	SimpleState finishedState;
 
-	public List<FrameStateManager> frames = new List<FrameStateManager>();
+	public FrameStateManager machine;
 	public IceCreamStateManager icecreamMachine;
 	public BubbleStateManager bubbleMachine;
+	public ClockStateManager clockMachine;
 
 	void Start()
 	{
@@ -18,10 +20,8 @@ public class MainStateManager : MonoBehaviour
 
 	public void Init () 
 	{
-		circleState = new SimpleState(CircleEnter, CircleUpdate, CircleExit, "CIRCLE");
 		bubbleState = new SimpleState(BubbleEnter, BubbleUpdate, BubbleExit, "BUBBLE");
 		clockState = new SimpleState(ClockEnter, ClockUpdate, ClockExit, "CLOCK");
-		squareState = new SimpleState(SquareEnter, SquareUpdate, SquareExit, "SQUARE");
 		icecreamState = new SimpleState(IceCreamEnter, IceCreamUpdate, IceCreamExit, "ICE CREAM");
 
 		/*
@@ -40,6 +40,8 @@ public class MainStateManager : MonoBehaviour
 
 	public void Setup () 
 	{
+		machine = bubbleMachine;
+		machine.enabled = true;
 		stateMachine.SwitchStates(bubbleState);
 	}
 
@@ -48,38 +50,18 @@ public class MainStateManager : MonoBehaviour
 		stateMachine.Execute();
 	}
 
-	#region circle
-	void CircleEnter() 
-	{
-		//poly.CreateNGon (20, 1);
-	}
-
-	void CircleUpdate() 
-	{
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			stateMachine.SwitchStates(bubbleState);
-		}
-	}
-
-	void CircleExit() {}
-	#endregion
-
-	#region clock
-	void ClockEnter() {
-		Debug.Log ("Clock");
-	}
+	#region CLOCK
+	void ClockEnter() {}
 
 	void ClockUpdate() 
 	{
-		if (Input.GetKeyDown (KeyCode.Space)) {
-			stateMachine.SwitchStates(icecreamState);
-		}
+		clockMachine.Execute();
 	}
 
 	void ClockExit() {}
 	#endregion
 	
-	#region icecream
+	#region ICECREAM
 	void IceCreamEnter() {
 	
 	}
@@ -97,7 +79,7 @@ public class MainStateManager : MonoBehaviour
 	void IceCreamExit() {}
 	#endregion
 	
-	#region bubble
+	#region BUBBLE
 	void BubbleEnter() {
 		
 	}
@@ -108,55 +90,13 @@ public class MainStateManager : MonoBehaviour
 		
 		if (bubbleMachine.stateMachine.currentState == "FINISHED")
 		{
-			
+			stateMachine.SwitchStates(clockState);
 		}
 	}
 	
-	void BubbleExit() {}
-	#endregion
-
-	#region square
-	void SquareEnter() {
-		//BlendHandler.Instance.Blend (this.gameObject, Resources.Load ("test") as GameObject);
-		BlendHandler.Instance.Blend(frames[0], frames[1], 3.0f);
-
-		//poly.CreateNGon (4,1);
-
-	}
-
-	void SquareUpdate() 
+	void BubbleExit() 
 	{
-
-	}
-
-	void SquareExit() 
-	{
-
-	}
-	#endregion
-
-	#region PLAY
-	void PlayEnter()
-	{
-		
-	}
-
-	void PlayUpdate() 
-	{
-		
-	}
-
-	void PlayExit() {}
-	#endregion
-
-	#region DISCONNECT
-	void DisconnectEnter() {}
-
-	void DisconnectUpdate() {}
-
-	void DisconnectExit() 
-	{
-		stateMachine.SwitchStates(clockState);
+		BlendHandler.Instance.Blend(machine, clockMachine, 3.0f);
 	}
 	#endregion
 }
