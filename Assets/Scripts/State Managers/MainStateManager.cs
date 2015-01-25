@@ -51,39 +51,57 @@ public class MainStateManager : MonoBehaviour
 		if (BlendHandler.Instance != null)
 		{
 			machine = machineObject.GetComponent<FrameStateManager>();
-			machine.EnableAll();
+			machine.EnableShapes();
+			machine.EnableLight();
+			machine.gameObject.SetActive(true);
 
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
 
-			Switch(bubbleState, bubble, 3.0f);
+			Switch(bubbleState, bubble, 1.0f);
 
 			this.initialized = true;
 		}
 	}
 
+	public bool switching = false;
+	public GameObject nextMachineObject;
+	public FrameStateManager nextMachine;
+
 	public void Switch(SimpleState nextState, GameObject nextObject, float duration)
 	{
 		stateMachine.SwitchStates(nextState);
-		Destroy(machineObject, duration + 0.1f);
-		machineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
-		FrameStateManager nextMachine = machineObject.GetComponent<FrameStateManager>();
-		nextMachine.DisableAll();
+
+		nextMachineObject = Instantiate(nextObject, Vector3.zero, Quaternion.identity) as GameObject;
+		nextMachine = nextMachineObject.GetComponent<FrameStateManager>();
+		nextMachine.DisableShapes();
+		nextMachine.DisableLight();
+
 		BlendHandler.Instance.Blend(machine, nextMachine, duration);
 
-		machine = nextMachine;
-		machineObject = nextMachine.gameObject;
-		StartCoroutine(EnableAfterDelay(machine, 3.0f));
+		StartCoroutine(AfterTransition(duration));
 	}
 
-		IEnumerator EnableAfterDelay(FrameStateManager machine, float duration)
+		IEnumerator AfterTransition(float duration)
 		{
+			switching = true;
 			Timer timer = new Timer(duration);
 			while (timer.Percent() < 1f)
 			{
 				yield return 0;
 			}
+			switching = false;
 
-			machine.EnableAll();
+			FrameStateManager oldMachine = machine;
+
+			machine = nextMachine;
+			machineObject = nextMachineObject;
+			machine.EnableShapes();
+
+			oldMachine.DisableShapes();
+			Destroy(oldMachine.gameObject);
+
+			oldMachine.DisableLight();
+			machine.EnableLight();
 		}
 
 	public void Execute () 
@@ -102,7 +120,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED")
 		{
-			Switch(clockState, clock, 3.0f);
+			Switch(clockState, clock, 1.0f);
 		}
 	}
 	
@@ -118,7 +136,7 @@ public class MainStateManager : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(icecreamState, icecream, 3.0f);
+			Switch(icecreamState, icecream, 1.0f);
 		}
 	}
 
@@ -134,7 +152,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(sexState, sex, 3.0f);
+			Switch(sexState, sex, 1.0f);
 		}
 	}
 	
@@ -150,7 +168,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(bicycleState, bicycle, 3.0f);
+			Switch(bicycleState, bicycle, 1.0f);
 		}
 	}
 	

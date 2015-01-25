@@ -20,7 +20,7 @@ public class FrameStateManager : MonoBehaviour
 		stateMachine.Execute();
 	}
 
-	public void EnableAll()
+	public void EnableShapes()
 	{
 		foreach (GameObject polygon in Polygons)
 		{
@@ -35,7 +35,12 @@ public class FrameStateManager : MonoBehaviour
 		this.gameObject.SetActive(true);
 	}
 
-	public void DisableAll()
+	public void EnableLight()
+	{
+		Lighting.gameObject.SetActive(true);
+	}
+
+	public void DisableShapes()
 	{
 		foreach (GameObject polygon in Polygons)
 		{
@@ -46,9 +51,10 @@ public class FrameStateManager : MonoBehaviour
 		{
 			deco.SetActive(false);
 		}
+	}
 
+	public void DisableLight()
+	{
 		Lighting.gameObject.SetActive(false);
-
-		this.gameObject.SetActive(false);
 	}
 }

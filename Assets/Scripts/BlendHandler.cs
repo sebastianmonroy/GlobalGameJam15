@@ -44,14 +44,14 @@ public class BlendHandler: MonoBehaviour {
 
 		while (from.Polygons.Count < to.Polygons.Count)
 		{
-			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			GameObject newPoly = Instantiate(EmptyPolygon, new Vector3(0f, 0f, toPolys[0].transform.position.z), Quaternion.identity) as GameObject;
 			newPoly.transform.parent = from.transform;
 			fromPolys.Add(newPoly);
 		}
 
 		while (to.Polygons.Count < from.Polygons.Count)
 		{
-			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			GameObject newPoly = Instantiate(EmptyPolygon, new Vector3(0f, 0f, fromPolys[0].transform.position.z), Quaternion.identity) as GameObject;
 			newPoly.transform.parent = to.transform;
 			toPolys.Add(newPoly);
 		}
@@ -120,8 +120,7 @@ public class BlendHandler: MonoBehaviour {
 			yield return 0;
 		}
 
-		startObject.SetActive(false);
-		endObject.SetActive(true);
+		//endObject.SetActive(true);
 	}
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
@@ -153,8 +152,7 @@ public class BlendHandler: MonoBehaviour {
 			yield return 0;
 		}
 
-		startLight.gameObject.SetActive(false);
-		endLight.gameObject.SetActive(true);
+		//endLight.gameObject.SetActive(true);
 	}
 
 	IEnumerator FadeOutObject(GameObject fadeObject, Timer timer)
@@ -167,15 +165,13 @@ public class BlendHandler: MonoBehaviour {
 			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
 		}
-
-		fadeObject.SetActive(false);
 	}
 	
 	IEnumerator FadeInObject(GameObject fadeObject, Timer timer)
 	{
 		//GameObject newObject = Instantiate(fadeObject, fadeObject.transform.position, fadeObject.transform.rotation) as GameObject;
 		//newObject.transform.localScale = Vector3.zero;
-		fadeObject.SetActive(true);
+		//fadeObject.SetActive(true);
 		Vector3 startSize = Vector3.zero;
 		Vector3 endSize = fadeObject.transform.localScale;
 
@@ -227,8 +223,7 @@ public class BlendHandler: MonoBehaviour {
 		}
 
 		Debug.Log("blend done");
-		to.SetActive(true);	
-		from.SetActive(false);
+		//to.SetActive(true);
 		blendDone = true;
 		//} 
 		//else 
