@@ -83,7 +83,7 @@ public class BlendHandler: MonoBehaviour {
 	}
 	
 	IEnumerator BlendDetails(FrameStateManager from, FrameStateManager to, Timer timer){
-		while(timer.Percent() > 0.5f){
+		while(timer.Percent() > 0.4f){
 			yield return 0;
 		}
 		Timer timer2 = new Timer(timer.Interval/2);

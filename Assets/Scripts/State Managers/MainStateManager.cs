@@ -105,7 +105,10 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED")
+		{
+			//Switch(personState, icecream, 3.0f);
+		} else if (machine.stateMachine.currentState == "FINISHEDICECREAM")
 		{
 			Switch(icecreamState, icecream, 3.0f);
 		}
