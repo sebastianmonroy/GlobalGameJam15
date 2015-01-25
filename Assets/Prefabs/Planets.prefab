@@ -1824,17 +1824,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 100048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc2e43d194218a34e9ef61000845da96, type: 3}
+  m_Script: {fileID: 11500000, guid: 9a10f2d51f74bf840a5148d24fe3a48e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stateMachine:
     currentState: 
-  Polygons: []
-  Decorations: []
-  BackgroundColor: {r: .16911763, g: .139273345, b: .139273345, a: 1}
+  Polygons:
+  - {fileID: 100052}
+  Decorations:
+  - {fileID: 100034}
+  - {fileID: 100036}
+  BackgroundColor: {r: .149019614, g: .121568628, b: .121568628, a: 0}
   Lighting: {fileID: 10800000}
-  BigBubble: {fileID: 0}
-  SmallBubble: {fileID: 0}
+  planet1: {fileID: 100046}
+  planet2: {fileID: 100042}
+  planet3: {fileID: 100040}
+  sun: {fileID: 0}
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1
