@@ -98,10 +98,9 @@ public class MainStateManager : MonoBehaviour
 			machine.EnableShapes();
 
 			oldMachine.DisableShapes();
-			Destroy(oldMachine.gameObject);
-
 			oldMachine.DisableLight();
 			machine.EnableLight();
+			Destroy(oldMachine.gameObject);
 		}
 
 	public void Execute () 
