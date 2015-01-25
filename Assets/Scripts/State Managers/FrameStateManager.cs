@@ -19,4 +19,40 @@ public class FrameStateManager : MonoBehaviour
 	{
 		stateMachine.Execute();
 	}
+
+	public void EnableAll()
+	{
+		foreach (GameObject polygon in PolygonObjects)
+		{
+			polygon.SetActive(true);
+		}
+
+		foreach (GameObject deco in DynamicDecorations)
+		{
+			deco.SetActive(true);
+		}
+
+		foreach (GameObject deco in StaticDecorations)
+		{
+			deco.SetActive(true);
+		}
+	}
+
+	public void DisableAll()
+	{
+		foreach (GameObject polygon in PolygonObjects)
+		{
+			polygon.SetActive(false);
+		}
+
+		foreach (GameObject deco in DynamicDecorations)
+		{
+			deco.SetActive(false);
+		}
+
+		foreach (GameObject deco in StaticDecorations)
+		{
+			deco.SetActive(false);
+		}
+	}
 }

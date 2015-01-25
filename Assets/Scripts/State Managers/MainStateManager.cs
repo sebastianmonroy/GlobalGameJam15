@@ -8,6 +8,7 @@ public class MainStateManager : MonoBehaviour
 	SimpleState clockState, bubbleState, icecreamState;
 	SimpleState finishedState;
 
+	public GameObject machineObject;
 	public FrameStateManager machine;
 	public IceCreamStateManager icecreamMachine;
 	public BubbleStateManager bubbleMachine;
@@ -40,9 +41,17 @@ public class MainStateManager : MonoBehaviour
 
 	public void Setup () 
 	{
-		machine = bubbleMachine;
-		machine.enabled = true;
+		SetMachine(bubbleMachine);
+		BlendHandler.Instance.Background.renderer.material.color = bubbleMachine.BackgroundColor;
 		stateMachine.SwitchStates(bubbleState);
+
+	}
+
+	public void SetMachine(FrameStateManager toMachine)
+	{
+		machineObject = Instantiate(toMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
+		machine = machineObject.GetComponent<FrameStateManager>();
+		machine.EnableAll();
 	}
 
 	public void Execute () 
@@ -55,10 +64,20 @@ public class MainStateManager : MonoBehaviour
 
 	void ClockUpdate() 
 	{
-		clockMachine.Execute();
+		machine.Execute();
+
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			stateMachine.SwitchStates(icecreamState);
+		}
 	}
 
-	void ClockExit() {}
+	void ClockExit() 
+	{
+		BlendHandler.Instance.Blend(machine, icecreamMachine, 3.0f);
+		SetMachine(icecreamMachine);
+		//machineObject = Instantiate(icecreamMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
+	}
 	#endregion
 	
 	#region ICECREAM
@@ -68,9 +87,9 @@ public class MainStateManager : MonoBehaviour
 	
 	void IceCreamUpdate() 
 	{
-		icecreamMachine.Execute();
+		machine.Execute();
 		
-		if (icecreamMachine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED")
 		{
 		
 		}
@@ -86,9 +105,9 @@ public class MainStateManager : MonoBehaviour
 	
 	void BubbleUpdate() 
 	{
-		bubbleMachine.Execute();
+		machine.Execute();
 		
-		if (bubbleMachine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED")
 		{
 			stateMachine.SwitchStates(clockState);
 		}
@@ -97,6 +116,8 @@ public class MainStateManager : MonoBehaviour
 	void BubbleExit() 
 	{
 		BlendHandler.Instance.Blend(machine, clockMachine, 3.0f);
+		SetMachine(clockMachine);
+		//machineObject = Instantiate(clockMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
 	}
 	#endregion
 }

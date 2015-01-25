@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class BlendHandler: MonoBehaviour {
 	public static BlendHandler Instance;
+	public GameObject EmptyPolygon;
 	public GameObject Background;
 	public float speedAlteration = 1f;
 	public bool blendDone = true;
@@ -33,7 +35,23 @@ public class BlendHandler: MonoBehaviour {
 
 	public void Blend(FrameStateManager from, FrameStateManager to, Timer timer)
 	{
+		Timer longTimer = new Timer(timer.Interval * 2f);
 		blendDone = false;
+
+		List<GameObject> fromPolys = from.PolygonObjects;
+		List<GameObject> toPolys = to.PolygonObjects;
+
+		while (from.PolygonObjects.Count < to.PolygonObjects.Count)
+		{
+			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			fromPolys.Add(newPoly);
+		}
+
+		while (to.PolygonObjects.Count < from.PolygonObjects.Count)
+		{
+			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			toPolys.Add(newPoly);
+		}
 
 		for (int i = 0; i < from.PolygonObjects.Count; i++)
 		{

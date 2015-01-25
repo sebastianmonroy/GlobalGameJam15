@@ -9,6 +9,8 @@ public class IceCreamStateManager : FrameStateManager {
 	{
 		meltState = new SimpleState(MeltEnter, MeltUpdate, MeltExit, "MELT");
 		finishedState = new SimpleState(null, null, null, "FINISHED");
+
+		stateMachine.SwitchStates(meltState);
 	}
 	
 	public void Execute() {}
