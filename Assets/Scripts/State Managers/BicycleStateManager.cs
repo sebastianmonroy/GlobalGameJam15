@@ -22,7 +22,7 @@ public class BicycleStateManager : FrameStateManager
 	
 	void Start() {
 		bicycleState = new SimpleState(bicycleEnter, bicycleUpdate, bicycleExit, "BICYCLE");
-		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED");
+		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED_BICYCLE");
 		
 		stateMachine.SwitchStates(bicycleState);
 		

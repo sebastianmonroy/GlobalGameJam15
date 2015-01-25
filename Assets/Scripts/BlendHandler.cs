@@ -189,7 +189,7 @@ public class BlendHandler: MonoBehaviour {
 		
 		//if (polygon1.Vertices.Length == polygon2.Vertices.Length)
 		//{
-		Debug.Log("blend start");
+		//Debug.Log("blend start");
 		Vector2[] oldVertices = polygon1.Vertices;
 		Quaternion oldRotation = from.transform.rotation;
 		Vector3 oldScale = from.transform.localScale;
@@ -222,7 +222,7 @@ public class BlendHandler: MonoBehaviour {
 			yield return 0;
 		}
 
-		Debug.Log("blend done");
+		//Debug.Log("blend done");
 		//to.SetActive(true);
 		blendDone = true;
 		//} 

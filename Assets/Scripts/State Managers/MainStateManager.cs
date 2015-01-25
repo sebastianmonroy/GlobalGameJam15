@@ -31,7 +31,7 @@ public class MainStateManager : MonoBehaviour
 		spaceState = new SimpleState(SpaceEnter, SpaceUpdate, SpaceExit, "SPACE");
 		caterpillarState = new SimpleState(CaterpillarEnter, CaterpillarUpdate, CaterpillarExit, "CATERPILLAR");
 		cloudState = new SimpleState(CloudEnter, CloudUpdate, CloudExit, "CLOUD");
-		spaceState = new SimpleState(HeartEnter, HeartUpdate, HeartExit, "HEART");
+		heartState = new SimpleState(HeartEnter, HeartUpdate, HeartExit, "HEART");
 
 		Setup();
 	}
@@ -59,7 +59,7 @@ public class MainStateManager : MonoBehaviour
 
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
 
-			Switch(bubbleState, bubble, 1.0f);
+			Switch(spaceState, space, 1.0f);
 
 			this.initialized = true;
 		}
@@ -194,7 +194,6 @@ public class MainStateManager : MonoBehaviour
 	void SexUpdate() 
 	{
 		machine.Execute();
-		Debug.Log("here");
 
 		if (machine.stateMachine.currentState == "FINISHED_SEX1" || Input.GetKeyDown(KeyCode.Space))
 		{
@@ -231,7 +230,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_SPACE")
 		{
-			
+			Switch(pawState, paw, 2.0f);
 		}
 	}
 	void SpaceExit() {}
@@ -273,7 +272,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_HEART")
 		{
-			
+			Switch(bubbleState, bubble, 1.0f);
 		}
 	}
 	void HeartExit() {}
@@ -288,7 +287,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_BICYCLE")
 		{
-			Switch(bubbleState, bubble, 1.0f);
+			Switch(pigState, pig, 1.0f);
 		}
 	}
 	
