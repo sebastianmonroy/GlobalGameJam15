@@ -154,7 +154,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(bicycleState, sex, 1.0f);
+			Switch(sexState, sex, 1.0f);
 		}
 	}
 	
@@ -167,10 +167,10 @@ public class MainStateManager : MonoBehaviour
 	void SexUpdate() 
 	{
 		machine.Execute();
-		
+		Debug.Log("here");
+
 		if (machine.stateMachine.currentState == "FINISHED1" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Debug.Log("here");
 			Switch(bicycleState, bicycle, 1.0f);
 		}
 		if (machine.stateMachine.currentState == "FINISHED2")
