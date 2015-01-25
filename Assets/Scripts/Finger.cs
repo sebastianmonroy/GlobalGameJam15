@@ -15,6 +15,7 @@ public class Finger
 
 	public bool isValid;
 	public bool isMouse;
+	float born;
 
 	public Finger() {}
 	
@@ -27,11 +28,17 @@ public class Finger
 		this.position = touch.position;
 		this.isValid = true;
 		this.isMouse = false;
+		this.born = Time.time;
 
 		RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(position), Vector3.forward, Mathf.Infinity);
 		if (rayhit.collider != null) {
 			this.hitObject = rayhit.collider.gameObject;
 		}
+	}
+	
+	public float GetLifeSpan(){
+		float span = Time.time - born;
+		return span;
 	}
 
 	public Finger(Vector2 mousePosition)
@@ -40,6 +47,7 @@ public class Finger
 		this.position = mousePosition;
 		this.isValid = true;
 		this.isMouse = true;
+		this.born = Time.time;
 		
 		RaycastHit2D rayhit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(position), Vector3.forward, Mathf.Infinity);
 		if (rayhit.collider != null) {
