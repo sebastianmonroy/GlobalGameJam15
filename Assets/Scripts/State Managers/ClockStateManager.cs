@@ -19,6 +19,7 @@ public class ClockStateManager : FrameStateManager {
 	#region TICKTOCK
 	public GameObject MinuteHand;
 	public GameObject HourHand;
+	public GameObject Face;
 	private Timer secondTimer;
 	private float second;
 	private float minute;
@@ -40,8 +41,8 @@ public class ClockStateManager : FrameStateManager {
 			fingerCollider.transform.localPosition = f.GetWorldPosition();
 			Vector3 dir = minuteQuad.transform.right;
 			dir = new Vector3(dir.y, -dir.x, dir.z);
-			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
-			Debug.DrawRay(DynamicDecorations[1].transform.position, dir, Color.red);
+			RaycastHit2D hit = Physics2D.Raycast(MinuteHand.transform.position, dir);
+			//Debug.DrawRay(Decorations[1].transform.position, dir, Color.red);
 			
 			/*if(hit.collider != null) {
 				if (hit.collider.gameObject.name == "fingerPos"){
@@ -55,8 +56,8 @@ public class ClockStateManager : FrameStateManager {
 				Debug.Log("moving clockwise");
 				float speed = 150f;
 				secondTimer.Stop();
-				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, speed* Time.deltaTime);
-				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
+				MinuteHand.transform.RotateAround(Face.transform.position, -Vector3.forward, speed* Time.deltaTime);
+				HourHand.transform.RotateAround(Face.transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 				if(f.GetLifeSpan() > 2f) stateMachine.SwitchStates(finishedStateIceCream);

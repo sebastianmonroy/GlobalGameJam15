@@ -12,6 +12,7 @@ public class FrameStateManager : MonoBehaviour
 	// DECORATIONS
 	public List<GameObject> Decorations = new List<GameObject>();
 
+	// OTHER
 	public Color BackgroundColor;
 	public Light Lighting;
 

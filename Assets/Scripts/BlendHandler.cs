@@ -38,59 +38,89 @@ public class BlendHandler: MonoBehaviour {
 		Timer longTimer = new Timer(timer.Interval * 2f);
 		blendDone = false;
 
-		List<GameObject> fromPolys = from.PolygonObjects;
-		List<GameObject> toPolys = to.PolygonObjects;
+		// Polygons
+		List<GameObject> fromPolys = from.Polygons;
+		List<GameObject> toPolys = to.Polygons;
 
-		while (from.PolygonObjects.Count < to.PolygonObjects.Count)
+		while (from.Polygons.Count < to.Polygons.Count)
 		{
-			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			GameObject newPoly = Instantiate(EmptyPolygon, new Vector3(0f, 0f, toPolys[0].transform.position.z), Quaternion.identity) as GameObject;
 			newPoly.transform.parent = from.transform;
 			fromPolys.Add(newPoly);
 		}
 
-		while (to.PolygonObjects.Count < from.PolygonObjects.Count)
+		while (to.Polygons.Count < from.Polygons.Count)
 		{
-			GameObject newPoly = Instantiate(EmptyPolygon, Vector3.zero, Quaternion.identity) as GameObject;
+			GameObject newPoly = Instantiate(EmptyPolygon, new Vector3(0f, 0f, fromPolys[0].transform.position.z), Quaternion.identity) as GameObject;
 			newPoly.transform.parent = to.transform;
 			toPolys.Add(newPoly);
 		}
 
-		for (int i = 0; i < from.PolygonObjects.Count; i++)
+		for (int i = 0; i < fromPolys.Count; i++)
 		{
-			StartCoroutine(BlendPolygonObject(from.PolygonObjects[i], to.PolygonObjects[i], timer));
-		}
-		
-		for (int i = 0; i < from.DynamicDecorations.Count; i++)
-		{
-			StartCoroutine(FadeOutObject(from.DynamicDecorations[i], timer));
+			StartCoroutine(BlendPolygonObject(from.Polygons[i], to.Polygons[i], timer));
 		}
 
-		StartCoroutine(BlendDetails(from, to, timer));
-
-		for (int i = 0; i < from.StaticDecorations.Count; i++)
+		// Decorations
+		if (from.Decorations.Count < to.Decorations.Count)
 		{
-			StartCoroutine(FadeOutObject(from.StaticDecorations[i], timer));
+			for (int i = 0; i < from.Decorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.Decorations[i], to.Decorations[i], timer));
+			}
+
+			for (int i = from.Decorations.Count; i < to.Decorations.Count; i++)
+			{
+				StartCoroutine(FadeInObject(to.Decorations[i], timer));
+			}
 		}
-
-		for (int i = 0; i < to.StaticDecorations.Count; i++)
+		else if (from.Decorations.Count > to.Decorations.Count)
 		{
-			StartCoroutine(FadeInObject(to.StaticDecorations[i], timer));
+			for (int i = 0; i < to.Decorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.Decorations[i], to.Decorations[i], timer));
+			}
+
+			for (int i = to.Decorations.Count; i < from.Decorations.Count; i++)
+			{
+				StartCoroutine(FadeOutObject(from.Decorations[i], timer));
+			}
+		}
+		else
+		{
+			for (int i = 0; i < from.Decorations.Count; i++)
+			{
+				StartCoroutine(BlendObject(from.Decorations[i], to.Decorations[i], timer));
+			}
 		}
 
 		StartCoroutine(BlendBackground(from.BackgroundColor, to.BackgroundColor, timer));
 	
 		StartCoroutine(BlendLighting(from.Lighting, to.Lighting, timer));
 	}
-	
-	IEnumerator BlendDetails(FrameStateManager from, FrameStateManager to, Timer timer){
-		while(timer.Percent() > 0.4f){
+
+	IEnumerator BlendObject(GameObject startObject, GameObject endObject, Timer timer)
+	{
+		Vector3 oldPosition = startObject.transform.position;
+		Quaternion oldRotation = startObject.transform.rotation;
+		Vector3 oldScale = startObject.transform.localScale;
+		Color oldColor = startObject.renderer.material.color;
+
+		Vector3 newPosition = endObject.transform.position;
+		Quaternion newRotation = endObject.transform.rotation;
+		Vector3 newScale = endObject.transform.localScale;
+		Color newColor = endObject.renderer.material.color;
+
+		while (timer.Percent() < 1f)
+		{
+			startObject.transform.position = Vector3.Lerp(oldPosition, newPosition, timer.Percent());
+			startObject.transform.rotation = Quaternion.Lerp(oldRotation, newRotation, timer.Percent());
+			startObject.transform.localScale = Vector3.Lerp(oldScale, newScale, timer.Percent());
+			startObject.renderer.material.color = Color.Lerp(oldColor, newColor, timer.Percent());
 			yield return 0;
 		}
-		Timer timer2 = new Timer(timer.Interval/2);
-		for (int i = 0; i < to.DynamicDecorations.Count; i++)
-		{
-			StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer2));
-		}
+
+		//endObject.SetActive(true);
 	}
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)
@@ -122,8 +152,7 @@ public class BlendHandler: MonoBehaviour {
 			yield return 0;
 		}
 
-		startLight.gameObject.SetActive(false);
-		endLight.gameObject.SetActive(true);
+		//endLight.gameObject.SetActive(true);
 	}
 
 	IEnumerator FadeOutObject(GameObject fadeObject, Timer timer)
@@ -136,15 +165,13 @@ public class BlendHandler: MonoBehaviour {
 			fadeObject.transform.localScale = Vector3.Lerp(startSize, endSize, timer.Percent());
 			yield return 0;
 		}
-
-		fadeObject.SetActive(false);
 	}
 	
 	IEnumerator FadeInObject(GameObject fadeObject, Timer timer)
 	{
 		//GameObject newObject = Instantiate(fadeObject, fadeObject.transform.position, fadeObject.transform.rotation) as GameObject;
 		//newObject.transform.localScale = Vector3.zero;
-		fadeObject.SetActive(true);
+		//fadeObject.SetActive(true);
 		Vector3 startSize = Vector3.zero;
 		Vector3 endSize = fadeObject.transform.localScale;
 
@@ -196,8 +223,7 @@ public class BlendHandler: MonoBehaviour {
 		}
 
 		Debug.Log("blend done");
-		to.SetActive(true);	
-		from.SetActive(false);
+		//to.SetActive(true);
 		blendDone = true;
 		//} 
 		//else 
