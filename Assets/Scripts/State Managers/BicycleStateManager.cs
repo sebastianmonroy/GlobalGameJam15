@@ -21,7 +21,7 @@ public class BicycleStateManager : FrameStateManager
 	SimpleState bicycleState, finishedState;
 	
 	void Start() {
-		bicycleState = new SimpleState(bicycleEnter, bicycleUpdate, bicycleExit, "BICYCLE");
+		bicycleState = new SimpleState(bicycleEnter, bicycleUpdate, bicycleExit, "RIDE");
 		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED_BICYCLE");
 		
 		stateMachine.SwitchStates(bicycleState);
@@ -65,8 +65,8 @@ public class BicycleStateManager : FrameStateManager
 			
 			//transform.rigidbody.angularVelocity -= new Vector3 (0, 0, .001f * aVelDiff);
 			aTotal += aVel;
-			
-			if (aTotal > 10){
+			//Debug.Log(aTotal);
+			if (Mathf.Abs(aTotal) > 10){
 				stateMachine.SwitchStates(finishedState);
 			}
 		}

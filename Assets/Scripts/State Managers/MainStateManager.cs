@@ -59,7 +59,7 @@ public class MainStateManager : MonoBehaviour
 
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
 
-			Switch(spaceState, space, 1.0f);
+			Switch(startScreenState, startScreen, 1.0f);
 
 			this.initialized = true;
 		}
@@ -145,7 +145,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_STARTSCREEN")
 		{
-			Switch(bubbleState, bubble, 1.0f);
+			Switch(bubbleState, bubble, 2.0f);
 		}
 	}
 	
@@ -201,7 +201,7 @@ public class MainStateManager : MonoBehaviour
 		}
 		if (machine.stateMachine.currentState == "FINISHED_SEX2")
 		{
-			Switch(icecreamState, icecream, 1.0f);
+			Switch(bicycleState, bicycle, 1.0f);
 		}
 	}
 	
@@ -230,7 +230,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_SPACE")
 		{
-			Switch(pawState, paw, 2.0f);
+			Switch(heartState, heart, 2.0f);
 		}
 	}
 	void SpaceExit() {}
@@ -244,7 +244,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_CATERPILLAR")
 		{
-			
+			Switch(cloudState, cloud, 2.0f);
 		}
 	}
 	void CaterpillarExit() {}
@@ -256,9 +256,9 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED_CLOUD")
+		if (machine.stateMachine.currentState == "FINISHED_CLOUDS")
 		{
-			
+			Switch(pawState, paw, 2.0f);
 		}
 	}
 	void CloudExit() {}
@@ -287,7 +287,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_BICYCLE")
 		{
-			Switch(pigState, pig, 1.0f);
+			Switch(caterpillarState, caterpillar, 2.0f);
 		}
 	}
 	
@@ -303,7 +303,7 @@ public class MainStateManager : MonoBehaviour
 		
 		if (machine.stateMachine.currentState == "FINISHED_PAW")
 		{
-			Switch(clockState, clock, 1.0f);
+			Switch(spaceState, space, 2.0f);
 		}
 	}
 	
