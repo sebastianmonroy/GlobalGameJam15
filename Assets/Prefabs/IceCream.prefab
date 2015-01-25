@@ -45,6 +45,7 @@ GameObject:
   - 33: {fileID: 3300014}
   - 23: {fileID: 2300014}
   - 114: {fileID: 11400000}
+  - 60: {fileID: 6000000}
   m_Layer: 0
   m_Name: scoop 3
   m_TagString: Untagged
@@ -153,7 +154,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100014}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.15738, y: 1.98989999, z: -.193949997}
+  m_LocalPosition: {x: -.15738, y: 1.98989999, z: -.27471}
   m_LocalScale: {x: 1.20000005, y: 1.20000005, z: 1.20000005}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -183,7 +184,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100054}
   m_LocalRotation: {x: 0, y: 0, z: .98714751, w: .159812048}
-  m_LocalPosition: {x: .605120003, y: -1.23539996, z: -.192670003}
+  m_LocalPosition: {x: .555260003, y: -1.25380003, z: -.0560199991}
   m_LocalScale: {x: .152019739, y: 3.98345304, z: 1.50181556}
   m_Children: []
   m_Father: {fileID: 400016}
@@ -347,6 +348,22 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100058}
   m_Mesh: {fileID: 0}
+--- !u!60 &6000000
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100014}
+  m_Enabled: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Poly:
+    m_Paths:
+    - - {x: 0, y: 1.10550833}
+      - {x: 1.0514009, y: .341620833}
+      - {x: .649801433, y: -.894375086}
+      - {x: -.649801612, y: -.894374967}
+      - {x: -1.0514009, y: .341621011}
 --- !u!64 &6400046
 MeshCollider:
   m_ObjectHideFlags: 1
@@ -562,6 +579,7 @@ MonoBehaviour:
   - {fileID: 100054}
   BackgroundColor: {r: .964705884, g: .580392182, b: .474509805, a: 1}
   Lighting: {fileID: 10800000}
+  vanilla: {fileID: 100014}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

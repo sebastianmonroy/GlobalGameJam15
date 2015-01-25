@@ -149,9 +149,9 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(sexState, sex, 1.0f);
+			Switch(bicycleState, sex, 1.0f);
 		}
 	}
 	
@@ -165,9 +165,9 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(bicycleState, bicycle, 1.0f);
+			Switch(icecreamState, icecream, 1.0f);
 		}
 	}
 	
