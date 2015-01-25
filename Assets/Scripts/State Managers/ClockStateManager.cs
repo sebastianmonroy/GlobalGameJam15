@@ -23,6 +23,7 @@ public class ClockStateManager : FrameStateManager {
 	private float second;
 	private float minute;
 	private float hour;
+	Vector3 lastMinPosition = Vector3.zero;
 
 	void TickTockEnter() 
 	{
@@ -36,49 +37,32 @@ public class ClockStateManager : FrameStateManager {
 
 	void TickTockUpdate() 
 	{
-		Timer timer = new Timer(0.1f);
-		float endAmt = 360f/60f;
-		foreach(Finger f in GestureHandler.instance.fingers){
-			//stop clock movement
-			/*if(f.hitObject) {
-				if(f.hitObject.transform.parent.name == "Minute Hand" || f.hitObject.transform.parent.name == "Hour Hand"){
-					
-					timer.SetFinished();
-					secondTimer.SetFinished();
-					secondTimer.IsFinished();
-					endAmt *= 5f;
-					Debug.Log("force finish");
-					IncrementTime();
-					StartCoroutine(tick(timer, endAmt));
+		if(GestureHandler.instance.fingers.Count > 0){	
+			Finger f = GestureHandler.instance.fingers[0] as Finger;
+			RaycastHit2D hit = Physics2D.Raycase(DynamicDecorations[0].transform.position, Vector2.forward);
+			if(hit.collider != null) {
+				if(hit.collider.gameObject.name = "noon") {
+					//facing noon position
+					Timer hourTimer = new Timer(5.0f);
+					StartCoroutine(HourPassed(hourTimer));
+				} else if (hit.collider.gameObject.name = "fingerPos"){
+					//facing finger position
+					secondTimer.Stop();
+					secondTimer = new Timer(1.0f);
+					secondTimer.Repeat();
 				}
-			}*/
-			
-			
-			/*if(f.hitObject) {
-				if(f.hitObject.transform.parent.name == "Minute Hand" || f.hitObject.transform.parent.name == "Hour Hand"){
-					Debug.Log("hit hand");
-					endAmt *= 5f;
-					//StartCoroutine(tick(timer));
-				}
-			}*/
-			/*if(f.prevPositions.Count > 1) {
-				Vector2 newestPos = f.prevPositions[f.prevPositions.Count-1];
-				Vector2 comparePos = f.prevPositions[f.prevPositions.Count-2];
-				Vector2 clockCenter = PolygonObjects[0].transform.position;
-				
-				if(((comparePos.x - clockCenter.x)*(newestPos.y - clockCenter.y) - (comparePos.y - clockCenter.y)*(newestPos.x - clockCenter.x)) > 0){
-					//clockwise movement
-					endAmt *= 5f;
-				} else {
-					endAmt *= -5f;
-				}*/
-				
-				
-		
+			} else {	
+				secondTimer.Stop();
+				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150* Time.deltaTime);
+				secondTimer = new Timer(1.0f);
+				secondTimer.Repeat();
+			}
 		}
 		
 		if (secondTimer.IsFinished())
 		{
+			Timer timer = new Timer(0.1f);
+			float endAmt = 360f/60f;
 			IncrementTime();
 			StartCoroutine(tick(timer, endAmt));
 		}
@@ -122,6 +106,19 @@ public class ClockStateManager : FrameStateManager {
 			yield return 0;
 		}
 		
+	}
+	
+	IEnumerator HourPassed(Timer timer){
+		Debug.Log("hour passed");
+		Quaternion hourStartRotation = HourHand.transform.localRotation;
+		Quaternion hourEndRotation = hourStartRotation * Quaternion.AngleAxis(360f/60f/60f, Vector3.up);
+		
+		while (!timer.IsFinished())
+		{
+			HourHand.transform.localRotation = Quaternion.Lerp(hourStartRotation, hourEndRotation, timer.Percent());
+			
+			yield return 0;
+		}
 	}
 	
 	#region FINISHED
