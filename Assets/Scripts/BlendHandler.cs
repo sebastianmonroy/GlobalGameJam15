@@ -59,16 +59,13 @@ public class BlendHandler: MonoBehaviour {
 		{
 			StartCoroutine(BlendPolygonObject(from.PolygonObjects[i], to.PolygonObjects[i], timer));
 		}
-
+		
 		for (int i = 0; i < from.DynamicDecorations.Count; i++)
 		{
 			StartCoroutine(FadeOutObject(from.DynamicDecorations[i], timer));
 		}
 
-		for (int i = 0; i < to.DynamicDecorations.Count; i++)
-		{
-			StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer));
-		}
+		StartCoroutine(BlendDetails(from, to, timer));
 
 		for (int i = 0; i < from.StaticDecorations.Count; i++)
 		{
@@ -83,6 +80,17 @@ public class BlendHandler: MonoBehaviour {
 		StartCoroutine(BlendBackground(from.BackgroundColor, to.BackgroundColor, timer));
 	
 		StartCoroutine(BlendLighting(from.Lighting, to.Lighting, timer));
+	}
+	
+	IEnumerator BlendDetails(FrameStateManager from, FrameStateManager to, Timer timer){
+		while(timer.Percent() > 0.5f){
+			yield return 0;
+		}
+		Timer timer2 = new Timer(timer.Interval/2);
+		for (int i = 0; i < to.DynamicDecorations.Count; i++)
+		{
+			StartCoroutine(FadeInObject(to.DynamicDecorations[i], timer2));
+		}
 	}
 
 	IEnumerator BlendBackground(Color startColor, Color endColor, Timer timer)

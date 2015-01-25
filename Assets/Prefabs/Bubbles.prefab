@@ -277,7 +277,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: e28933906e9ccfe4c926c9fb51d0961c, type: 2}
+  - {fileID: 2100000, guid: 60216f62e4150d844b25e588cb8ef1fb, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -357,7 +357,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 60998a5df9a82a744a3f07616dcf5227, type: 2}
+  - {fileID: 2100000, guid: 3e421ec117d2ab4458211bae48f834aa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -750,7 +750,7 @@ MonoBehaviour:
   - {fileID: 100010}
   - {fileID: 100008}
   StaticDecorations: []
-  BackgroundColor: {r: .996078432, g: .631372571, b: .513725519, a: 1}
+  BackgroundColor: {r: .992647052, g: .83156842, b: .627703309, a: 1}
   Lighting: {fileID: 10800000}
 --- !u!1001 &100100000
 Prefab:
