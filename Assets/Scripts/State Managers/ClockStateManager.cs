@@ -56,10 +56,18 @@ public class ClockStateManager : FrameStateManager {
 					secondTimer = new Timer(1.0f);
 					secondTimer.Repeat();
 				}
-			} else {	
+			} else if() {	
+				float speed = 150f;
 				secondTimer.Stop();
-				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, 150* Time.deltaTime);
-				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (150/12f)* Time.deltaTime);
+				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, speed* Time.deltaTime);
+				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
+				secondTimer = new Timer(1.0f);
+				secondTimer.Repeat();
+			} else {
+				float speed = 150f;
+				secondTimer.Stop();
+				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, speed* Time.deltaTime);
+				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 			}
