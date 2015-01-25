@@ -10,8 +10,7 @@ public class FrameStateManager : MonoBehaviour
 	public List<GameObject> Polygons = new List<GameObject>();
 
 	// DECORATIONS
-	public List<GameObject> DynamicDecorations = new List<GameObject>();
-	public List<GameObject> StaticDecorations = new List<GameObject>();
+	public List<GameObject> Decorations = new List<GameObject>();
 
 	public Color BackgroundColor;
 	public Light Lighting;
@@ -28,15 +27,12 @@ public class FrameStateManager : MonoBehaviour
 			polygon.SetActive(true);
 		}
 
-		foreach (GameObject deco in DynamicDecorations)
+		foreach (GameObject deco in Decorations)
 		{
 			deco.SetActive(true);
 		}
 
-		foreach (GameObject deco in StaticDecorations)
-		{
-			deco.SetActive(true);
-		}
+		this.gameObject.SetActive(true);
 	}
 
 	public void DisableAll()
@@ -46,16 +42,13 @@ public class FrameStateManager : MonoBehaviour
 			polygon.SetActive(false);
 		}
 
-		foreach (GameObject deco in DynamicDecorations)
-		{
-			deco.SetActive(false);
-		}
-
-		foreach (GameObject deco in StaticDecorations)
+		foreach (GameObject deco in Decorations)
 		{
 			deco.SetActive(false);
 		}
 
 		Lighting.gameObject.SetActive(false);
+
+		this.gameObject.SetActive(false);
 	}
 }

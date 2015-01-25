@@ -25,8 +25,8 @@ public class ClockStateManager : FrameStateManager {
 
 	void TickTockEnter() 
 	{
-		MinuteHand = DynamicDecorations[0];
-		HourHand = DynamicDecorations[1];
+		MinuteHand = Decorations[0];
+		HourHand = Decorations[1];
 
 		secondTimer = new Timer(1.0f);
 		secondTimer.Repeat();

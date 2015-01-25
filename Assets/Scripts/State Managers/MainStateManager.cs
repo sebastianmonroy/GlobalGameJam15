@@ -50,18 +50,15 @@ public class MainStateManager : MonoBehaviour
 	{
 		if (BlendHandler.Instance != null)
 		{
-			//SetMachine(bubbleMachine);
+			machine = machineObject.GetComponent<FrameStateManager>();
+			machine.EnableAll();
+
 			BlendHandler.Instance.Background.renderer.material.color = machine.BackgroundColor;
+
 			Switch(bubbleState, bubble, 3.0f);
+
 			this.initialized = true;
 		}
-	}
-
-	public void SetMachine(FrameStateManager toMachine)
-	{
-		machineObject = Instantiate(toMachine.gameObject, Vector3.zero, Quaternion.identity) as GameObject;
-		machine = machineObject.GetComponent<FrameStateManager>();
-		machine.EnableAll();
 	}
 
 	public void Switch(SimpleState nextState, GameObject nextObject, float duration)
@@ -72,9 +69,22 @@ public class MainStateManager : MonoBehaviour
 		FrameStateManager nextMachine = machineObject.GetComponent<FrameStateManager>();
 		nextMachine.DisableAll();
 		BlendHandler.Instance.Blend(machine, nextMachine, duration);
-		//StartCoroutine(EnableAfterDelay(nextMachine))
+
 		machine = nextMachine;
+		machineObject = nextMachine.gameObject;
+		StartCoroutine(EnableAfterDelay(machine, 3.0f));
 	}
+
+		IEnumerator EnableAfterDelay(FrameStateManager machine, float duration)
+		{
+			Timer timer = new Timer(duration);
+			while (timer.Percent() < 1f)
+			{
+				yield return 0;
+			}
+
+			machine.EnableAll();
+		}
 
 	public void Execute () 
 	{
