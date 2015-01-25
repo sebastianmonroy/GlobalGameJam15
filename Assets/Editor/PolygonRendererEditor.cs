@@ -31,7 +31,9 @@ public class PolygonRendererEditor : Editor {
 				for (int i = 0; i < Vertices.Length; i++)
 				{
 					Vector2 vertex = Vertices[i];
-					if (Vector2.Distance(finger.GetWorldPosition(), vertex) < 0.5f)
+					Vector3 vertexWorldPosition = target.GetWorldPosition(i);
+
+					if (Vector2.Distance(finger.GetWorldPosition(), vertexWorldPosition) < 0.5f)
 					{
 						target.MoveVertex(i, finger.GetWorldPosition());
 						//serializedObject.ApplyModifiedProperties();

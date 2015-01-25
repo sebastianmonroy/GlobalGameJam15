@@ -39,9 +39,25 @@ public class PolygonRenderer : MonoBehaviour {
 		return changed;
 	}
 
-	public void MoveVertex(int index, Vector2 position)
+	public Vector3 GetWorldPosition(int index)
 	{
-		Vertices[index] = position;
+		Vector2 vertex = Vertices[index];
+		Vector3 localPosition = new Vector3(vertex.x, vertex.y, 0f);
+		Vector3 worldPosition = this.transform.TransformPoint(localPosition);
+		
+		return worldPosition;
+	}
+
+	public Vector2 GetLocalPosition(Vector3 worldPosition)
+	{
+		Vector3 localPosition = this.transform.InverseTransformPoint(new Vector3(worldPosition.x, worldPosition.y, 0f));
+		return new Vector2(localPosition.x, localPosition.y);
+	}
+
+	public void MoveVertex(int index, Vector3 worldPosition)
+	{
+		Vector3 localPosition = this.transform.InverseTransformPoint(new Vector3(worldPosition.x, worldPosition.y, 0f));
+		Vertices[index] = new Vector2(localPosition.x, localPosition.y);
 	}
 
 	public void Instance(){
@@ -156,12 +172,12 @@ public class PolygonRenderer : MonoBehaviour {
 
 		m.Clear();
 		
-		if (Application.isPlaying){
+		/*if (Application.isPlaying){
 			m.vertices = vertices;
 			m.triangles = triangles;
 			
 			yield return 0;
-		}
+		}*/
 		m.vertices = vertices;
 		m.triangles = triangles;
 		m.uv = new Vector2[vertices.Length];
