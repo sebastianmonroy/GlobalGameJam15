@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 1
@@ -71,7 +71,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100008
 GameObject:
   m_ObjectHideFlags: 1
@@ -528,7 +528,7 @@ MonoBehaviour:
     currentState: 
   Polygons: []
   Decorations: []
-  BackgroundColor: {r: .662745118, g: .521568656, b: .839215696, a: 0}
+  BackgroundColor: {r: .996078432, g: .937254906, b: .643137276, a: 0}
   Lighting: {fileID: 10800000}
   BigBubble: {fileID: 100010}
   SmallBubble: {fileID: 100004}
