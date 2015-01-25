@@ -1,61 +1,75 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
-public class SpaceStateManager : MonoBehaviour
-{
-	public SimpleStateMachine stateMachine;
+public class SpaceStateManager : FrameStateManager {
 
-	// POLYGONS
-	public List<GameObject> Polygons = new List<GameObject>();
-
-	// DECORATIONS
-	public List<GameObject> Decorations = new List<GameObject>();
-
-	// OTHER
-	public Color BackgroundColor;
-	public Light Lighting;
-
-	public virtual void Execute() 
+	SimpleState floatState, finishedState;
+	public GameObject planet1, planet2, planet3, sun;
+	private bool select1, select2, select3;
+	
+	void Start() 
 	{
-		stateMachine.Execute();
+		floatState = new SimpleState(floatEnter, floatUpdate, floatExit, "FLOAT");
+		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED");
+		
+		stateMachine.SwitchStates(floatState);
 	}
-
-	public void EnableShapes()
-	{
-		foreach (GameObject polygon in Polygons)
+	
+	#region FLOAT
+	void floatEnter() {}
+	void floatUpdate() {
+		/*BigBubble.transform.localScale = new Vector3(
+			Mathf.PingPong(Time.time/8, 0.07f)+0.93f,
+			Mathf.PingPong(Time.time/5, 0.15f)+0.85f,
+			Mathf.PingPong(Time.time/7, 0.1f)+0.9f
+		);
+		SmallBubble.transform.localScale = new Vector3(
+			Mathf.PingPong(Time.time/14, 0.07f)+0.93f,
+			Mathf.PingPong(Time.time/8, 0.15f)+0.85f,
+			Mathf.PingPong(Time.time/10, 0.1f)+0.9f
+		);*/
+		
+		foreach(Finger f in GestureHandler.instance.fingers)
 		{
-			polygon.SetActive(true);
+			if (f.hitObject != null)
+			{
+				if (f.hitObject.transform.parent.gameObject == planet1)
+				{
+					select1 = true;
+				} else {
+					select1 = false;
+					planet1.transform.RotateAround(sun.transform.position, Time.time);
+				}
+				
+				if (f.hitObject.transform.parent.gameObject == planet1)
+				{
+					select2 = true;
+				} else {
+					select2 = false;
+					planet2.transform.RotateAround(sun.transform.position, Time.time*2);
+				}
+				
+				if (f.hitObject.transform.parent.gameObject == planet1)
+				{
+					select3 = true;
+				} else {
+					select3 = false;
+					planet3.transform.RotateAround(sun.transform.position, Time.time*4);
+				}
+			}
 		}
 
-		foreach (GameObject deco in Decorations)
+		if (select1 && select2 && select3)
 		{
-			deco.SetActive(true);
-		}
-
-		this.gameObject.SetActive(true);
-	}
-
-	public void EnableLight()
-	{
-		Lighting.gameObject.SetActive(true);
-	}
-
-	public void DisableShapes()
-	{
-		foreach (GameObject polygon in Polygons)
-		{
-			polygon.SetActive(false);
-		}
-
-		foreach (GameObject deco in Decorations)
-		{
-			deco.SetActive(false);
+			stateMachine.SwitchStates(finishedState);
 		}
 	}
-
-	public void DisableLight()
-	{
-		Lighting.gameObject.SetActive(false);
-	}
+	void floatExit() {}
+	#endregion
+	
+	#region FINISHED
+	void finishedEnter() {}
+	void finishedUpdate() {}
+	void finishedExit() {}
+	#endregion
 }

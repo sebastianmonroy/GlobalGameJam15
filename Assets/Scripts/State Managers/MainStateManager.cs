@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState; startScreenState;
+	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState, pawState, startScreenState;
 	SimpleState finishedState;
 
 	public GameObject machineObject;
