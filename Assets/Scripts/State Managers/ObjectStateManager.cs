@@ -12,11 +12,7 @@ public class ObjectStateManager : MonoBehaviour
 
 	PolygonRenderer poly;
 
-<<<<<<< HEAD
 	public List<Frame> frames = new List<Frame>();
-=======
-	public List<GameObject> objects;
->>>>>>> origin/master
 
 	void Start()
 	{
