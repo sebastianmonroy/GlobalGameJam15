@@ -46,7 +46,7 @@ public class ClockStateManager : FrameStateManager {
 			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
 			Debug.DrawRay(DynamicDecorations[1].transform.position, dir, Color.red);
 			
-			if(hit.collider != null) {
+			/*if(hit.collider != null) {
 				if (hit.collider.gameObject.name == "fingerPos"){
 					Debug.Log("looking at finger");
 					//facing finger position
@@ -54,7 +54,7 @@ public class ClockStateManager : FrameStateManager {
 					secondTimer = new Timer(1.0f);
 					secondTimer.Repeat();
 				}
-			} else {	
+			} else {	*/
 				Debug.Log("moving clockwise");
 				float speed = 150f;
 				secondTimer.Stop();
@@ -62,8 +62,8 @@ public class ClockStateManager : FrameStateManager {
 				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
-				if(f.GetLifeSpan() > 3f) stateMachine.SwitchStates(finishedStateIceCream);
-			}
+				if(f.GetLifeSpan() > 2f) stateMachine.SwitchStates(finishedStateIceCream);
+			//}
 		}
 		
 		if (secondTimer.IsFinished())
