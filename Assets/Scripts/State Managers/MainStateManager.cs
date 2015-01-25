@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState clockState, bubbleState, icecreamState;
+	SimpleState clockState, bubbleState, icecreamState, sexState, bicycleState;
 	SimpleState finishedState;
 
 	public GameObject machineObject;
@@ -13,6 +13,8 @@ public class MainStateManager : MonoBehaviour
 	public GameObject icecream;
 	public GameObject bubble;
 	public GameObject clock;
+	public GameObject sex;
+	public GameObject bicycle;
 
 	public bool initialized = false;
 
@@ -26,6 +28,8 @@ public class MainStateManager : MonoBehaviour
 		bubbleState = new SimpleState(BubbleEnter, BubbleUpdate, BubbleExit, "BUBBLE");
 		clockState = new SimpleState(ClockEnter, ClockUpdate, ClockExit, "CLOCK");
 		icecreamState = new SimpleState(IceCreamEnter, IceCreamUpdate, IceCreamExit, "ICE CREAM");
+		sexState = new SimpleState(SexEnter, SexUpdate, SexExit, "SEX");
+		bicycleState = new SimpleState(BicycleEnter, BicycleUpdate, BicycleExit, "BICYCLE");
 
 		Setup();
 	}
@@ -111,11 +115,41 @@ public class MainStateManager : MonoBehaviour
 	#endregion
 	
 	#region ICECREAM
-	void IceCreamEnter() {
-	
-	}
+	void IceCreamEnter() {}
 	
 	void IceCreamUpdate() 
+	{
+		machine.Execute();
+		
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Switch(sexState, sex, 3.0f);
+		}
+	}
+	
+	void IceCreamExit() {}
+	#endregion
+
+	#region SEX
+	void SexEnter() {}
+	
+	void SexUpdate() 
+	{
+		machine.Execute();
+		
+		if (Input.GetKeyDown(KeyCode.Space))
+		{
+			Switch(bicycleState, bicycle, 3.0f);
+		}
+	}
+	
+	void SexExit() {}
+	#endregion
+
+	#region BICYCLE
+	void BicycleEnter() {}
+	
+	void BicycleUpdate() 
 	{
 		machine.Execute();
 		
@@ -125,6 +159,6 @@ public class MainStateManager : MonoBehaviour
 		}
 	}
 	
-	void IceCreamExit() {}
+	void BicycleExit() {}
 	#endregion
 }

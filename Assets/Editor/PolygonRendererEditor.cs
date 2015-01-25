@@ -15,7 +15,7 @@ public class PolygonRendererEditor : Editor {
 
 		PolygonRenderer target = (serializedObject.targetObject as PolygonRenderer);
 
-		/*if (EditorApplication.isPlaying && GestureHandler.instance != null)
+		if (EditorApplication.isPlaying && GestureHandler.instance != null)
 		{
 			List<Finger> fingers = GestureHandler.instance.fingers;
 			Finger mouse = GestureHandler.instance.mouse;
@@ -50,7 +50,7 @@ public class PolygonRendererEditor : Editor {
 		if (target.VerticesChanged())
 		{
 			target.Build();
-		}*/
+		}
 
 		GUILayout.BeginHorizontal();
 		GUILayout.Space(EditorGUIUtility.labelWidth);

@@ -468,6 +468,8 @@ MonoBehaviour:
   icecream: {fileID: 100016, guid: e160720e81494c34988bfbdc2af8a298, type: 2}
   bubble: {fileID: 100002, guid: 01eca96c034ffab429ef160c886ed4c1, type: 2}
   clock: {fileID: 100038, guid: 0c4c8226efbbb284ba476f8a09e876d7, type: 2}
+  sex: {fileID: 100018, guid: 4daa71d72976d504691aeafe3dda2617, type: 2}
+  bicycle: {fileID: 100016, guid: b3c3e09c10f95ce4aa5de271d9a843b6, type: 2}
   initialized: 0
 --- !u!1001 &1864877901
 Prefab:
@@ -509,6 +511,10 @@ Prefab:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 424a1727f187ee5499391c3321020103, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 424a1727f187ee5499391c3321020103, type: 2}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
