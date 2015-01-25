@@ -5,9 +5,11 @@ using System.Collections.Generic;
 public class MainStateManager : MonoBehaviour
 {
 	public SimpleStateMachine stateMachine;
-	SimpleState circleState, clockState, squareState, playState, disconnectState, finishedState;
+	SimpleState circleState, clockState, squareState, playState, disconnectState, bubbleState, finishedState, icecreamState;
 
 	public List<FrameStateManager> frames = new List<FrameStateManager>();
+	public IceCreamStateManager icecreamMachine;
+	public BubbleStateManager bubbleMachine;
 
 	void Start()
 	{
@@ -17,8 +19,10 @@ public class MainStateManager : MonoBehaviour
 	public void Init () 
 	{
 		circleState = new SimpleState(CircleEnter, CircleUpdate, CircleExit, "CIRCLE");
+		bubbleState = new SimpleState(BubbleEnter, BubbleUpdate, BubbleExit, "BUBBLE");
 		clockState = new SimpleState(ClockEnter, ClockUpdate, ClockExit, "CLOCK");
 		squareState = new SimpleState(SquareEnter, SquareUpdate, SquareExit, "SQUARE");
+		icecreamState = new SimpleState(IceCreamEnter, IceCreamUpdate, IceCreamExit, "ICE CREAM");
 
 		/*
 		playState = new SimpleState(PlayEnter, PlayUpdate, PlayExit, "PLAY");
@@ -28,6 +32,7 @@ public class MainStateManager : MonoBehaviour
 
 		Setup();
 	}
+	
 	void Update () 
 	{
 		Execute();
@@ -35,7 +40,7 @@ public class MainStateManager : MonoBehaviour
 
 	public void Setup () 
 	{
-		stateMachine.SwitchStates(circleState);
+		stateMachine.SwitchStates(bubbleState);
 	}
 
 	public void Execute () 
@@ -52,7 +57,7 @@ public class MainStateManager : MonoBehaviour
 	void CircleUpdate() 
 	{
 		if (Input.GetKeyDown (KeyCode.Space)) {
-			stateMachine.SwitchStates(squareState);
+			stateMachine.SwitchStates(bubbleState);
 		}
 	}
 
@@ -64,9 +69,50 @@ public class MainStateManager : MonoBehaviour
 		Debug.Log ("Clock");
 	}
 
-	void ClockUpdate() {}
+	void ClockUpdate() 
+	{
+		if (Input.GetKeyDown (KeyCode.Space)) {
+			stateMachine.SwitchStates(icecreamState);
+		}
+	}
 
 	void ClockExit() {}
+	#endregion
+	
+	#region icecream
+	void IceCreamEnter() {
+	
+	}
+	
+	void IceCreamUpdate() 
+	{
+		icecreamMachine.Execute();
+		
+		if (icecreamMachine.stateMachine.currentState == "FINISHED")
+		{
+		
+		}
+	}
+	
+	void IceCreamExit() {}
+	#endregion
+	
+	#region bubble
+	void BubbleEnter() {
+		
+	}
+	
+	void BubbleUpdate() 
+	{
+		bubbleMachine.Execute();
+		
+		if (bubbleMachine.stateMachine.currentState == "FINISHED")
+		{
+			
+		}
+	}
+	
+	void BubbleExit() {}
 	#endregion
 
 	#region square

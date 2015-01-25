@@ -15,5 +15,8 @@ public class FrameStateManager : MonoBehaviour
 	public Color BackgroundColor;
 	public Light Lighting;
 
-	public virtual void Execute() {}
+	public virtual void Execute() 
+	{
+		stateMachine.Execute();
+	}
 }
