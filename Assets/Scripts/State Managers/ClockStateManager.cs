@@ -41,8 +41,11 @@ public class ClockStateManager : FrameStateManager {
 		if(GestureHandler.instance.fingers.Count > 0){	
 			Finger f = GestureHandler.instance.fingers[0] as Finger;
 			fingerCollider.transform.position = f.position;
-			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, DynamicDecorations[0].transform.localRotation.ToEuler());
-			Debug.DrawRay(DynamicDecorations[0].transform.position, DynamicDecorations[0].transform.localRotation.ToEuler(), Color.red);
+			Vector3 dir = DynamicDecorations[1].transform.localRotation.ToEuler();
+			dir.z = 0;
+			//dir.x = 0;
+			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
+			Debug.DrawRay(DynamicDecorations[1].transform.position, dir, Color.red);
 			if(hit.collider != null) {
 				if (hit.collider.gameObject.name == "fingerPos"){
 					//facing finger position
