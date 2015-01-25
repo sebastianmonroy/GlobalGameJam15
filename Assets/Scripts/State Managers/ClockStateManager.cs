@@ -41,13 +41,14 @@ public class ClockStateManager : FrameStateManager {
 		if(GestureHandler.instance.fingers.Count > 0){	
 			Finger f = GestureHandler.instance.fingers[0] as Finger;
 			fingerCollider.transform.localPosition = f.GetWorldPosition();
-			Vector3 dir = DynamicDecorations[0].transform.localRotation.ToEuler();
-			dir = minuteQuad.transform.right;
+			Vector3 dir = minuteQuad.transform.right;
 			dir = new Vector3(dir.y, -dir.x, dir.z);
-			//dir.z = 0;
-			//dir.x = 0;
 			RaycastHit2D hit = Physics2D.Raycast(DynamicDecorations[0].transform.position, dir);
 			Debug.DrawRay(DynamicDecorations[1].transform.position, dir, Color.red);
+			
+			Vector3 center = PolygonObjects[1].transform.position;
+			float side = ( (-dir.x)*(f.position.y-(dir.y)) - (-dir.y)*(f.position.x-dir.x) );
+			
 			if(hit.collider != null) {
 				if (hit.collider.gameObject.name == "fingerPos"){
 					Debug.Log("looking at finger");
@@ -56,7 +57,8 @@ public class ClockStateManager : FrameStateManager {
 					secondTimer = new Timer(1.0f);
 					secondTimer.Repeat();
 				}
-			} else if() {	
+			} else if(side >= 0) {	
+				Debug.Log("moving clockwise");
 				float speed = 150f;
 				secondTimer.Stop();
 				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, speed* Time.deltaTime);
@@ -64,10 +66,11 @@ public class ClockStateManager : FrameStateManager {
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 			} else {
+				Debug.Log("moving counterclockwise");
 				float speed = 150f;
 				secondTimer.Stop();
-				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, speed* Time.deltaTime);
-				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
+				DynamicDecorations[0].transform.RotateAround(PolygonObjects[1].transform.position, Vector3.forward, speed* Time.deltaTime);
+				DynamicDecorations[1].transform.RotateAround(PolygonObjects[1].transform.position, Vector3.forward, (speed/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
 			}
