@@ -3,15 +3,15 @@ using System.Collections;
 
 public class ClockStateManager : FrameStateManager {
 
-	SimpleState ticktockState, finishedState, finishedStateIceCream;	
+	SimpleState ticktockState, finishedState, finishedState2;	
 	
 	
 
 	void Start() 
 	{
 		ticktockState = new SimpleState(TickTockEnter, TickTockUpdate, TickTockExit, "TICK TOCK");
-		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED");
-		finishedStateIceCream = new SimpleState(finishedIceCreamEnter, finishedIceCreamUpdate, finishedIceCreamExit, "FINISHEDICECREAM");
+		finishedState = new SimpleState(null, null, null, "FINISHED_CLOCK1");
+		finishedState2 = new SimpleState(null, null, null, "FINISHED_CLOCK2");
 		
 		stateMachine.SwitchStates(ticktockState);
 	}
@@ -60,7 +60,7 @@ public class ClockStateManager : FrameStateManager {
 				HourHand.transform.RotateAround(Face.transform.position, -Vector3.forward, (speed/12f)* Time.deltaTime);
 				secondTimer = new Timer(1.0f);
 				secondTimer.Repeat();
-				if(f.GetLifeSpan() > 2f) stateMachine.SwitchStates(finishedStateIceCream);
+				if(f.GetLifeSpan() > 2f) stateMachine.SwitchStates(finishedState2);
 			//}
 		}
 		
@@ -125,16 +125,4 @@ public class ClockStateManager : FrameStateManager {
 			yield return 0;
 		}
 	}
-	
-	#region FINISHED
-	void finishedEnter() {}
-	void finishedUpdate() {}
-	void finishedExit() {}
-	#endregion
-	
-	#region FINISHEDICECREAM
-	void finishedIceCreamEnter() {}
-	void finishedIceCreamUpdate() {}
-	void finishedIceCreamExit() {}
-	#endregion
 }

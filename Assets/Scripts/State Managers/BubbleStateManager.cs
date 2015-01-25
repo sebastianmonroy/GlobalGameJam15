@@ -9,7 +9,7 @@ public class BubbleStateManager : FrameStateManager
 	void Start() 
 	{
 		floatState = new SimpleState(floatEnter, floatUpdate, floatExit, "FLOAT");
-		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED");
+		finishedState = new SimpleState(null, null, null, "FINISHED_BUBBLE");
 		
 		stateMachine.SwitchStates(floatState);
 	}
@@ -51,11 +51,5 @@ public class BubbleStateManager : FrameStateManager
 		}
 	}
 	void floatExit() {}
-	#endregion
-	
-	#region FINISHED
-	void finishedEnter() {}
-	void finishedUpdate() {}
-	void finishedExit() {}
 	#endregion
 }

@@ -16,8 +16,8 @@ public class SexStateManager : FrameStateManager {
 	{
 		//Debug.Log (GetClosestPointOnLine(Vector3.zero, Vector3.up * 5, new Vector3(.5f,.5f,0)));
 		sexState = new SimpleState(sexEnter, sexUpdate, sexExit, "SEX");
-		finishedState1 = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED1");
-		finishedState2 = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED2");
+		finishedState1 = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED_SEX1");
+		finishedState2 = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED_SEX2");
 
 		stateMachine.SwitchStates(sexState);
 	}

@@ -9,7 +9,7 @@ public class PigStateManager : FrameStateManager {
 	void Start() 
 	{
 		idleState = new SimpleState(IdleEnter, IdleUpdate, IdleExit, "IDLE");
-		finishedState = new SimpleState(null, null, null, "FINISHED");
+		finishedState = new SimpleState(null, null, null, "FINISHED_PIG");
 
 		stateMachine.SwitchStates(idleState);
 	}
@@ -17,7 +17,7 @@ public class PigStateManager : FrameStateManager {
 	#region IDLE
 	void IdleEnter() 
 	{
-		
+
 	}
 	
 	void IdleUpdate() 

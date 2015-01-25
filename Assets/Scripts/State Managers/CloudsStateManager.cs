@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class HeartStateManager : FrameStateManager
+public class CloudsStateManager : FrameStateManager
 {
 	void Start ()
 	{

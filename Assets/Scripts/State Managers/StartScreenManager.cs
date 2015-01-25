@@ -3,26 +3,25 @@ using System.Collections;
 
 public class StartScreenManager : FrameStateManager {
 
-	SimpleState floatState, finishedState;
-	public GameObject BigBubble, SmallBubble;
+	SimpleState menuState, finishedState;
 	
 	void Start() 
 	{
-		floatState = new SimpleState(floatEnter, floatUpdate, floatExit, "FLOAT");
-		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED");
+		menuState = new SimpleState(menuEnter, menuUpdate, menuExit, "MENU");
+		finishedState = new SimpleState(finishedEnter, finishedUpdate, finishedExit, "FINISHED_STARTSCREEN");
 		
-		stateMachine.SwitchStates(floatState);
+		stateMachine.SwitchStates(menuState);
 	}
 	
 	#region FLOAT
-	void floatEnter() {}
-	void floatUpdate() {
+	void menuEnter() {}
+	void menuUpdate() {
 		if( GestureHandler.instance.fingers.Count > 0 )
 		{
 			stateMachine.SwitchStates(finishedState);
 		}
 	}
-	void floatExit() {}
+	void menuExit() {}
 	#endregion
 	
 	#region FINISHED

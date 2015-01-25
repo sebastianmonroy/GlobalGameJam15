@@ -3,12 +3,12 @@ using System.Collections;
 
 public class IceCreamStateManager : FrameStateManager {
 
-	SimpleState meltState, fallState, shimmerState, finishedState;	
+	SimpleState meltState, finishedState;	
 	
 	void Start() 
 	{
 		meltState = new SimpleState(MeltEnter, MeltUpdate, MeltExit, "MELT");
-		finishedState = new SimpleState(null, null, null, "FINISHED");
+		finishedState = new SimpleState(null, null, null, "FINISHED_ICECREAM");
 
 		stateMachine.SwitchStates(meltState);
 	}

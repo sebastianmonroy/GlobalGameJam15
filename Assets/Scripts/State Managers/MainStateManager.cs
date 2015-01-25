@@ -124,7 +124,7 @@ public class MainStateManager : MonoBehaviour
 		{
 			machine.Execute();
 			
-			if (machine.stateMachine.currentState == "FINISHED")
+			if (machine.stateMachine.currentState == "FINISHED_BUBBLE")
 			{
 				Switch(clockState, clock, 1.0f);
 			}
@@ -143,7 +143,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_STARTSCREEN")
 		{
 			Switch(bubbleState, bubble, 1.0f);
 		}
@@ -159,12 +159,13 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_CLOCK")
 		{
-			//Switch(personState, icecream, 3.0f);
-		} else if (machine.stateMachine.currentState == "FINISHEDICECREAM")
+			Switch(sexState, sex, 1.0f);
+		} 
+		else if (machine.stateMachine.currentState == "FINISHED_CLOCK2")
 		{
-			Switch(icecreamState, icecream, 1.0f);
+			Switch(sexState, sex, 1.0f);
 		}
 	}
 
@@ -178,9 +179,9 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED" || Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED_ICECREAM" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(sexState, sex, 1.0f);
+			Switch(pawState, paw, 1.0f);
 		}
 	}
 	
@@ -195,11 +196,11 @@ public class MainStateManager : MonoBehaviour
 		machine.Execute();
 		Debug.Log("here");
 
-		if (machine.stateMachine.currentState == "FINISHED1" || Input.GetKeyDown(KeyCode.Space))
+		if (machine.stateMachine.currentState == "FINISHED_SEX1" || Input.GetKeyDown(KeyCode.Space))
 		{
-			Switch(bicycleState, bicycle, 1.0f);
+			Switch(icecreamState, icecream, 1.0f);
 		}
-		if (machine.stateMachine.currentState == "FINISHED2")
+		if (machine.stateMachine.currentState == "FINISHED_SEX2")
 		{
 			Switch(icecreamState, icecream, 1.0f);
 		}
@@ -214,7 +215,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_PIG")
 		{
 			
 		}
@@ -228,7 +229,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_SPACE")
 		{
 			
 		}
@@ -242,7 +243,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_CATERPILLAR")
 		{
 			
 		}
@@ -256,7 +257,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_CLOUD")
 		{
 			
 		}
@@ -270,7 +271,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_HEART")
 		{
 			
 		}
@@ -285,7 +286,7 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_BICYCLE")
 		{
 			Switch(pigState, pig, 1.0f);
 		}
@@ -301,9 +302,9 @@ public class MainStateManager : MonoBehaviour
 	{
 		machine.Execute();
 		
-		if (machine.stateMachine.currentState == "FINISHED")
+		if (machine.stateMachine.currentState == "FINISHED_PAW")
 		{
-			
+			Switch(clockState, clock, 1.0f);
 		}
 	}
 	

@@ -4,13 +4,28 @@ using System.Collections.Generic;
 
 public class CaterpillarStateManager : FrameStateManager
 {
-	void Start ()
-	{
+	SimpleState idleState, finishedState;	
 	
+	void Start() 
+	{
+		idleState = new SimpleState(IdleEnter, IdleUpdate, IdleExit, "IDLE");
+		finishedState = new SimpleState(null, null, null, "FINISHED_PIG");
+
+		stateMachine.SwitchStates(idleState);
 	}
 	
-	void Update ()
+	#region IDLE
+	void IdleEnter() 
 	{
-	
+
 	}
+	
+	void IdleUpdate() 
+	{
+		
+	}
+	
+	void IdleExit() {}
+	#endregion
+	
 }
