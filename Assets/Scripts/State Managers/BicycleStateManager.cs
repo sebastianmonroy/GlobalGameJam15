@@ -66,7 +66,7 @@ public class BicycleStateManager : FrameStateManager
 			//transform.rigidbody.angularVelocity -= new Vector3 (0, 0, .001f * aVelDiff);
 			aTotal += aVel;
 			
-			if (aTotal > 200){
+			if (aTotal > 10){
 				stateMachine.SwitchStates(finishedState);
 			}
 		}
